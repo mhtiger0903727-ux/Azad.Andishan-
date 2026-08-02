@@ -17,7 +17,7 @@
 </head>
 <body class="bg-zinc-100 text-zinc-800">
 
-    <!-- نوار بالا -->
+    <!-- Navbar -->
     <nav class="sticky top-0 z-50 bg-white border-b border-zinc-200">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex items-center justify-between h-16">
@@ -33,6 +33,7 @@
                     <a onclick="showSection('projects')" class="cursor-pointer hover:text-blue-600">لیست پروژه‌ها</a>
                     <a onclick="showSection('comments')" class="cursor-pointer hover:text-blue-600">نظر کاربران</a>
                     <a onclick="showSection('about')" class="cursor-pointer hover:text-blue-600">درباره ما</a>
+                    <a onclick="showSection('admin-comments')" class="cursor-pointer hover:text-blue-600 font-bold">مدیریت نظرات</a>
                 </div>
 
                 <div class="relative">
@@ -44,6 +45,7 @@
                         <div onclick="showSection('projects'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer">لیست پروژه‌ها</div>
                         <div onclick="showSection('comments'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer">نظر کاربران</div>
                         <div onclick="showSection('about'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer">درباره ما</div>
+                        <div onclick="showSection('admin-comments'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer text-blue-600 font-bold">مدیریت نظرات</div>
                         <div class="border-t my-1"></div>
                         <div onclick="showSection('contact'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer text-blue-600">ارتباط با ما</div>
                     </div>
@@ -55,8 +57,7 @@
     <!-- جستجو -->
     <div class="max-w-7xl mx-auto px-6 pt-6">
         <div class="relative max-w-md mx-auto">
-            <input id="search-input" type="text" placeholder="جستجو در سایت..." 
-                   class="w-full bg-white border border-zinc-300 rounded-3xl py-3 px-5 pl-12 text-sm focus:outline-none focus:border-blue-500">
+            <input id="search-input" type="text" placeholder="جستجو در سایت..." class="w-full bg-white border border-zinc-300 rounded-3xl py-3 px-5 pl-12 text-sm focus:outline-none focus:border-blue-500">
             <i class="fa-solid fa-search absolute right-5 top-4 text-zinc-400"></i>
         </div>
     </div>
@@ -73,9 +74,6 @@
                 <button onclick="showSection('projects')" class="px-8 py-3.5 bg-blue-600 text-white rounded-3xl font-bold">مشاهده پروژه‌ها</button>
                 <button onclick="showSection('contact')" class="px-8 py-3.5 border border-zinc-300 rounded-3xl font-bold">سفارش پروژه</button>
             </div>
-        </div>
-        <div class="mt-8 text-center">
-            <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
         </div>
     </div>
 
@@ -101,11 +99,10 @@
         </div>
         <div class="mt-8 flex gap-3">
             <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
-            <button onclick="history.back()" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه قبل</button>
         </div>
     </div>
 
-    <!-- نظر کاربران -->
+    <!-- نظر کاربران (ثبت نظر) -->
     <div id="comments" class="section max-w-7xl mx-auto px-6 pt-8">
         <h2 class="text-3xl font-black mb-8">نظر کاربران</h2>
         
@@ -121,7 +118,18 @@
         
         <div class="mt-8 flex gap-3">
             <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
-            <button onclick="history.back()" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه قبل</button>
+        </div>
+    </div>
+
+    <!-- بخش جدید: مدیریت نظرات (برای خواندن نظرات) -->
+    <div id="admin-comments" class="section max-w-7xl mx-auto px-6 pt-8">
+        <h2 class="text-3xl font-black mb-8">مدیریت نظرات</h2>
+        <p class="text-zinc-600 mb-6">در این بخش می‌توانید نظرات کاربران را مشاهده و به آن‌ها پاسخ دهید.</p>
+        
+        <div id="admin-comments-list" class="space-y-4"></div>
+        
+        <div class="mt-8 flex gap-3">
+            <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
         </div>
     </div>
 
@@ -133,7 +141,6 @@
         </div>
         <div class="mt-8 flex gap-3">
             <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
-            <button onclick="history.back()" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه قبل</button>
         </div>
     </div>
 
@@ -156,7 +163,6 @@
         </div>
         <div class="mt-8 flex gap-3">
             <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
-            <button onclick="history.back()" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه قبل</button>
         </div>
     </div>
 
@@ -181,6 +187,10 @@
             document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
             document.getElementById(section).classList.add('active');
             document.getElementById('menu-dropdown').classList.add('hidden');
+
+            if (section === 'admin-comments') {
+                renderAdminComments();
+            }
         }
 
         function orderProject(name) {
@@ -209,6 +219,51 @@
                 `;
                 container.appendChild(div);
             });
+        }
+
+        function renderAdminComments() {
+            const container = document.getElementById('admin-comments-list');
+            container.innerHTML = '';
+            
+            if (comments.length === 0) {
+                container.innerHTML = '<p class="text-zinc-500">هنوز نظری ثبت نشده است.</p>';
+                return;
+            }
+
+            comments.forEach((c, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-6 rounded-3xl border border-zinc-200';
+                div.innerHTML = `
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <div class="w-9 h-9 bg-zinc-200 rounded-full flex items-center justify-center font-bold">${c.name[0]}</div>
+                        <span class="font-bold">${c.name}</span>
+                    </div>
+                    <p class="text-zinc-700 mb-4">${c.text}</p>
+                    
+                    ${c.replies && c.replies.length > 0 ? 
+                        `<div class="mb-4 pr-4 text-sm text-blue-600 border-r-2 border-blue-500"><strong>پاسخ شما:</strong> ${c.replies[0].text}</div>` : ''}
+                    
+                    <div class="flex gap-2">
+                        <input type="text" id="reply-${index}" placeholder="پاسخ شما..." class="flex-1 px-4 py-2 border border-zinc-300 rounded-2xl text-sm">
+                        <button onclick="addReply(${index})" class="px-5 bg-blue-600 text-white rounded-2xl text-sm font-bold">ارسال پاسخ</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addReply(index) {
+            const input = document.getElementById(`reply-${index}`);
+            const replyText = input.value.trim();
+            if (!replyText) return;
+
+            if (!comments[index].replies) comments[index].replies = [];
+            comments[index].replies[0] = { text: replyText };
+            
+            localStorage.setItem('comments', JSON.stringify(comments));
+            renderAdminComments();
+            renderComments();
+            input.value = '';
         }
 
         function submitComment() {
