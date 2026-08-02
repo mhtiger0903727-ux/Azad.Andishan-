@@ -1,0 +1,442 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آزاد اندیشان</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap');
+        body { font-family: 'Vazirmatn', sans-serif; }
+        
+        .section { display: none; }
+        .section.active { display: block; }
+        
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-zinc-100 text-zinc-800">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-zinc-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-16">
+                <!-- لوگو -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl flex items-center justify-center">
+                        <span class="text-white text-3xl font-black">آ</span>
+                    </div>
+                    <h1 class="text-2xl font-black tracking-tighter">آزاد اندیشان</h1>
+                </div>
+
+                <!-- منوی دسکتاپ -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a onclick="showSection('home')" class="cursor-pointer hover:text-blue-600">صفحه اصلی</a>
+                    <a onclick="showSection('projects')" class="cursor-pointer hover:text-blue-600">لیست پروژه‌ها</a>
+                    <a onclick="showSection('comments')" class="cursor-pointer hover:text-blue-600">نظر کاربران</a>
+                    <a onclick="showSection('about')" class="cursor-pointer hover:text-blue-600">درباره ما</a>
+                </div>
+
+                <!-- منوی همبرگری -->
+                <div class="relative">
+                    <button onclick="toggleMenu()" class="w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-zinc-100">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                    <div id="menu-dropdown" class="hidden absolute left-0 mt-2 w-52 bg-white rounded-3xl shadow-xl border border-zinc-200 py-2 z-50">
+                        <div onclick="showSection('home'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer flex items-center gap-x-3"><i class="fa-solid fa-home w-5"></i><span>صفحه اصلی</span></div>
+                        <div onclick="showSection('projects'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer flex items-center gap-x-3"><i class="fa-solid fa-list w-5"></i><span>لیست پروژه‌ها</span></div>
+                        <div onclick="showSection('comments'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer flex items-center gap-x-3"><i class="fa-solid fa-comments w-5"></i><span>نظر کاربران</span></div>
+                        <div onclick="showSection('about'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer flex items-center gap-x-3"><i class="fa-solid fa-info-circle w-5"></i><span>درباره ما</span></div>
+                        <div class="border-t my-1"></div>
+                        <div onclick="showSection('contact'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer flex items-center gap-x-3 text-blue-600"><i class="fa-solid fa-link w-5"></i><span>ارتباط با ما</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- نوار جستجو -->
+    <div class="max-w-7xl mx-auto px-6 pt-6">
+        <div class="relative max-w-md mx-auto">
+            <input id="search-input" type="text" class="w-full bg-white border border-zinc-300 rounded-3xl py-3 px-5 pl-12 text-sm focus:outline-none focus:border-blue-500" placeholder="جستجو در تمام محتوا...">
+            <i class="fa-solid fa-search absolute right-5 top-4 text-zinc-400"></i>
+        </div>
+    </div>
+
+    <!-- صفحه اصلی -->
+    <div id="home" class="section active max-w-7xl mx-auto px-6 pt-8">
+        <div class="text-center py-12">
+            <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-600 to-violet-600 rounded-[2.5rem] mb-6 shadow-xl">
+                <span class="text-white text-6xl font-black">آ</span>
+            </div>
+            <h1 class="text-5xl font-black tracking-tighter mb-3">آزاد اندیشان</h1>
+            <p class="text-2xl text-zinc-600 mb-8">ایده از شما ؛ طراحی سایت از ما</p>
+            
+            <div class="flex justify-center gap-4">
+                <button onclick="showSection('projects')" class="px-8 py-3.5 bg-blue-600 text-white rounded-3xl font-bold">مشاهده پروژه‌ها</button>
+                <button onclick="showSection('contact')" class="px-8 py-3.5 border border-zinc-300 rounded-3xl font-bold">سفارش پروژه</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- لیست پروژه‌ها -->
+    <div id="projects" class="section max-w-7xl mx-auto px-6 pt-8">
+        <h2 class="text-3xl font-black mb-8">لیست پروژه‌ها</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="project-card bg-white p-6 rounded-3xl border border-zinc-200">
+                <div class="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center mb-4"><i class="fa-solid fa-book text-amber-600 text-2xl"></i></div>
+                <h3 class="font-bold text-xl mb-2">فروشگاه کتاب</h3>
+                <p class="text-sm text-zinc-600 mb-6">فروشگاه آنلاین کتاب با جستجو و سبد خرید</p>
+                <button onclick="orderProject('فروشگاه کتاب')" class="w-full py-3 bg-zinc-900 text-white rounded-2xl font-bold text-sm">سفارش این پروژه</button>
+            </div>
+            <div class="project-card bg-white p-6 rounded-3xl border border-zinc-200">
+                <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mb-4"><i class="fa-solid fa-clock text-blue-600 text-2xl"></i></div>
+                <h3 class="font-bold text-xl mb-2">فروشگاه ساعت</h3>
+                <p class="text-sm text-zinc-600 mb-6">فروشگاه آنلاین ساعت با فیلتر و پرداخت</p>
+                <button onclick="orderProject('فروشگاه ساعت')" class="w-full py-3 bg-zinc-900 text-white rounded-2xl font-bold text-sm">سفارش این پروژه</button>
+            </div>
+            <div class="project-card bg-white p-6 rounded-3xl border border-zinc-200">
+                <div class="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center mb-4"><i class="fa-solid fa-store text-emerald-600 text-2xl"></i></div>
+                <h3 class="font-bold text-xl mb-2">فروشگاه زنجیره‌ای</h3>
+                <p class="text-sm text-zinc-600 mb-6">وبسایت فروشگاهی با چند دسته‌بندی</p>
+                <button onclick="orderProject('فروشگاه زنجیره‌ای')" class="w-full py-3 bg-zinc-900 text-white rounded-2xl font-bold text-sm">سفارش این پروژه</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نظر کاربران -->
+    <div id="comments" class="section max-w-7xl mx-auto px-6 pt-8">
+        <h2 class="text-3xl font-black mb-8">نظر کاربران</h2>
+        
+        <div class="bg-white rounded-3xl p-6 border border-zinc-200 mb-8">
+            <h4 class="font-bold mb-4">نظر خود را ثبت کنید</h4>
+            <div class="space-y-4">
+                <input id="comment-name" type="text" placeholder="نام شما" class="w-full px-4 py-3 bg-zinc-100 border border-zinc-200 rounded-2xl text-sm">
+                <textarea id="comment-text" placeholder="نظر شما..." rows="3" class="w-full px-4 py-3 bg-zinc-100 border border-zinc-200 rounded-3xl text-sm resize-none"></textarea>
+                <button onclick="submitComment()" class="px-6 py-2.5 bg-blue-600 text-white rounded-2xl text-sm font-bold">ارسال نظر</button>
+            </div>
+        </div>
+        <div id="comments-list" class="space-y-4"></div>
+    </div>
+
+    <!-- درباره ما -->
+    <div id="about" class="section max-w-7xl mx-auto px-6 pt-8">
+        <div class="max-w-2xl">
+            <h2 class="text-3xl font-black mb-6">درباره ما</h2>
+            <p class="text-lg leading-relaxed text-zinc-600">تیم آزاد اندیشان با تمرکز بر طراحی سایت‌های مدرن و کاربردی، آماده تبدیل ایده‌های شما به واقعیت است.</p>
+        </div>
+    </div>
+
+    <!-- ارتباط با ما -->
+    <div id="contact" class="section max-w-7xl mx-auto px-6 pt-8">
+        <h2 class="text-3xl font-black mb-8">ارتباط با ما</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+            <a href="https://eitaa.com/Azad_andishan" target="_blank" class="flex items-center gap-x-4 bg-white p-5 rounded-3xl border border-zinc-200 hover:border-blue-500">
+                <i class="fa-brands fa-telegram text-3xl text-sky-500"></i>
+                <div><div class="font-bold">ایتا</div><div class="text-sm text-zinc-500">@Azad_andishan</div></div>
+            </a>
+            <a href="https://rubika.ir/Azad_Andishan_Top" target="_blank" class="flex items-center gap-x-4 bg-white p-5 rounded-3xl border border-zinc-200 hover:border-blue-500">
+                <i class="fa-brands fa-whatsapp text-3xl text-emerald-500"></i>
+                <div><div class="font-bold">روبیکا</div><div class="text-sm text-zinc-500">@Azad_Andishan_Top</div></div>
+            </a>
+            <a href="https://t.me/azadandishan_orginal" target="_blank" class="flex items-center gap-x-4 bg-white p-5 rounded-3xl border border-zinc-200 hover:border-blue-500">
+                <i class="fa-brands fa-telegram text-3xl text-blue-500"></i>
+                <div><div class="font-bold">تلگرام</div><div class="text-sm text-zinc-500">@azadandishan_orginal</div></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <div class="max-w-7xl mx-auto px-6 mt-16 pb-8">
+        <div class="flex flex-col md:flex-row items-center justify-between text-sm text-zinc-500 border-t border-zinc-200 pt-6">
+            <div>با مدیریت محمد حسین تقی پور ۱۴۰۵</div>
+            <div class="flex items-center gap-x-2 mt-4 md:mt-0">
+                <i class="fa-solid fa-users"></i>
+                <span id="visitor-count">۱۲۴۸</span>
+                <span>بازدید</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu-dropdown').classList.toggle('hidden');
+        }
+
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            document.getElementById('menu-dropdown').classList.add('hidden');
+        }
+
+        function orderProject(name) {
+            showSection('contact');
+            alert(`پروژه "${name}" انتخاب شد. لطفاً از طریق لینک‌های ارتباط با ما اقدام کنید.`);
+        }
+
+        // سیستم نظرات
+        let comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+        function renderComments() {
+            const container = document.getElementById('comments-list');
+            container.innerHTML = '';
+            comments.forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-5 rounded-3xl border border-zinc-200';
+                div.innerHTML = `
+                    <div class="flex items-center gap-x-3 mb-3">
+                        <div class="w-9 h-9 bg-zinc-200 rounded-full flex items-center justify-center font-bold">${c.name[0]}</div>
+                        <span class="font-bold">${c.name}</span>
+                    </div>
+                    <p class="text-zinc-600 mb-4">${c.text}</p>
+                    ${c.replies && c.replies.length > 0 ? 
+                        `<div class="pr-4 text-sm text-blue-600 border-r-2 border-blue-500"><strong>پاسخ مدیر:</strong> ${c.replies[0].text}</div>` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function submitComment() {
+            const name = document.getElementById('comment-name').value.trim();
+            const text = document.getElementById('comment-text').value.trim();
+            if (!name || !text) { alert('نام و نظر را وارد کنید'); return; }
+
+            comments.unshift({ id: Date.now(), name, text, replies: [] });
+            localStorage.setItem('comments', JSON.stringify(comments));
+            renderComments();
+            document.getElementById('comment-name').value = '';
+            document.getElementById('comment-text').value = '';
+        }
+
+        function updateVisitorCount() {
+            let count = parseInt(localStorage.getItem('visitorCount')) || 1248;
+            count++;
+            localStorage.setItem('visitorCount', count);
+            document.getElementById('visitor-count').innerText = count.toLocaleString('fa-IR');
+        }
+
+        function init() {
+            document.getElementById('home').classList.add('active');
+            renderComments();
+            updateVisitorCount();
+
+            // بستن منو با کلیک بیرون
+            document.addEventListener('click', function(e) {
+                const menu = document.getElementById('menu-dropdown');
+                if (!e.target.closest('button') && !menu.contains(e.target)) {
+                    menu.classList.add('hidden');
+                }
+            });
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
+lass="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full text-sm">
+                                سفارش پروژه
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function switchLayout(layout) {
+            currentLayout = layout;
+            const container = document.getElementById('main-content');
+            renderProjects(container);
+        }
+
+        function searchInProjects() {
+            const term = document.getElementById('project-search').value.toLowerCase();
+            const cards = document.querySelectorAll('#projects-grid .project-card');
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                card.style.display = title.includes(term) ? '' : 'none';
+            });
+        }
+
+        function searchProjects() {
+            const term = document.getElementById('search-input').value.toLowerCase();
+            showPage('projects');
+            setTimeout(() => {
+                const input = document.getElementById('project-search');
+                if (input) {
+                    input.value = term;
+                    searchInProjects();
+                }
+            }, 300);
+        }
+
+        function showProjectModal(id) {
+            const project = projects.find(p => p.id === id);
+            if (!project) return;
+
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+
+            let featuresHTML = project.features.map(f => 
+                `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> ${f}</li>`
+            ).join('');
+
+            modalContent.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <i class="fa-solid ${project.icon} text-5xl text-blue-600 mb-3"></i>
+                        <h2 class="text-3xl font-bold">${project.title}</h2>
+                        <div class="text-blue-600 font-semibold text-xl mt-1">${project.price}</div>
+                    </div>
+                    <button onclick="closeModal()" class="text-2xl text-gray-400 hover:text-gray-600">×</button>
+                </div>
+                <p class="text-gray-700 mb-6">${project.description}</p>
+                <div class="mb-6"><h4 class="font-semibold mb-3">ویژگی‌ها:</h4><ul class="space-y-2">${featuresHTML}</ul></div>
+                <div class="flex gap-3 mt-8">
+                    <button onclick="orderProject(${project.id}); closeModal();" class="flex-1 bg-blue-600 text-white py-3 rounded-full font-semibold">سفارش پروژه</button>
+                    <button onclick="closeModal()" class="flex-1 border py-3 rounded-full">بستن</button>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function orderProject(id) {
+            closeModal();
+            showPage('contact');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function renderComments(container) {
+            let html = `
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold mb-6">نظرات کاربران</h2>
+                    <div class="mb-8">
+                        <div class="bg-white p-6 rounded-2xl shadow">
+                            <h4 class="font-semibold mb-4">ثبت نظر جدید</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="comment-name" placeholder="نام شما" class="border px-4 py-2 rounded-lg">
+                                <textarea id="comment-text" placeholder="متن نظر" class="border px-4 py-2 rounded-lg md:col-span-2 h-24"></textarea>
+                            </div>
+                            <button onclick="submitComment()" class="mt-4 bg-blue-600 text-white px-8 py-2 rounded-full">ارسال نظر</button>
+                        </div>
+                    </div>
+                    <div id="comments-list" class="space-y-4">
+            `;
+
+            comments.forEach(c => {
+                html += `
+                    <div class="comment-card bg-white p-6 rounded-2xl shadow">
+                        <div class="flex justify-between">
+                            <div>
+                                <div class="font-semibold">${c.name}</div>
+                                <div class="text-xs text-gray-500">${c.date}</div>
+                            </div>
+                        </div>
+                        <p class="mt-3 text-gray-700">${c.text}</p>
+                        ${c.reply ? `<div class="mt-4 mr-6 p-4 bg-blue-50 rounded-xl text-sm"><div class="font-semibold text-blue-700">پاسخ مدیر:</div><div class="text-gray-700 mt-1">${c.reply}</div></div>` : ''}
+                    </div>
+                `;
+            });
+
+            html += `</div></div>`;
+            container.innerHTML = html;
+        }
+
+        function submitComment() {
+            const name = document.getElementById('comment-name').value.trim();
+            const text = document.getElementById('comment-text').value.trim();
+            if (!name || !text) { alert('لطفاً نام و متن نظر را وارد کنید.'); return; }
+
+            comments.unshift({
+                id: Date.now(),
+                name, text,
+                date: new Date().toLocaleDateString('fa-IR'),
+                reply: ''
+            });
+            renderComments(document.getElementById('main-content'));
+        }
+
+        function updateClock() {
+            const clockEl = document.getElementById('nav-clock');
+            const timeEl = document.getElementById('nav-time');
+            if (!clockEl || !timeEl) return;
+            const now = new Date();
+            clockEl.innerHTML = `<span class="font-mono">${now.toLocaleDateString('fa-IR')}</span>`;
+            timeEl.innerHTML = now.toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function initialize() {
+            showPage('home');
+            updateClock();
+            setInterval(updateClock, 30000);
+        }
+
+        window.onload = initialize;
+    </script>
+</body>
+</html>
+-page', 'راه ارتباطی با مدیر سایت'); }
+        function showAboutPage() { showPage('about-page', 'درباره ما'); }
+
+        function openModal(project) {
+            document.getElementById('modal-title').innerText = project.title;
+            document.getElementById('modal-price').innerText = project.price;
+            document.getElementById('project-modal').classList.remove('hidden');
+            document.getElementById('project-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function orderProject() {
+            closeModal();
+            showContactPage();
+        }
+
+        function toggleMenu() {
+            document.getElementById('dropdown-menu').classList.toggle('hidden');
+        }
+        
+        function hideMenu() {
+            document.getElementById('dropdown-menu').classList.add('hidden');
+        }
+
+        function searchFromHome(e) {
+            e.preventDefault();
+            const val = document.getElementById('home-search-input').value.toLowerCase();
+            showProjectsPage();
+            setTimeout(() => {
+                renderProjects(projects.filter(p => p.title.toLowerCase().includes(val)));
+                document.getElementById('search-input').value = val;
+            }, 100);
+        }
+
+        window.onload = function() {
+            updateNavClock();
+            startAutoDateSwitch();
+            renderProjects();
+            renderComments();
+            updatePageTitle('صفحه اصلی');
+            setLayout('grid');
+        }
+    </script>
+</body>
+</html>
