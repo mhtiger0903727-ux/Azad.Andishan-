@@ -4,301 +4,720 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>آزاد اندیشان</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap');
-        body { font-family: 'Vazirmatn', sans-serif; }
-        .section { display: none; }
-        .section.active { display: block; }
-        .project-card { transition: all 0.3s ease; }
-        .project-card:hover { transform: translateY(-6px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&amp;display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e2937);
+            color: #e2e8f0;
+            direction: rtl;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: #1e2937;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+        
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .hamburger {
+            font-size: 28px;
+            cursor: pointer;
+            color: #60a5fa;
+        }
+        
+        .menu {
+            display: none;
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: #1e2937;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            width: 220px;
+            overflow: hidden;
+            z-index: 1001;
+        }
+        
+        .menu.active {
+            display: block;
+        }
+        
+        .menu a {
+            display: block;
+            padding: 15px 20px;
+            color: #e2e8f0;
+            text-decoration: none;
+            border-bottom: 1px solid #334155;
+            transition: all 0.3s;
+        }
+        
+        .menu a:hover {
+            background: #334155;
+            color: #60a5fa;
+        }
+        
+        .page {
+            display: none;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #60a5fa;
+            text-align: center;
+        }
+        
+        .card {
+            background: #1e2937;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .media-card {
+            background: #334155;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .media-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .media-card img, .media-card video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .media-info {
+            padding: 15px;
+        }
+        
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: #1e2937;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #3b82f6;
+            width: 0%;
+            transition: width 0.3s;
+            border-radius: 10px;
+        }
+        
+        .back-btn {
+            background: #475569;
+            margin-bottom: 20px;
+        }
+        
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
     </style>
 </head>
-<body class="bg-zinc-100 text-zinc-800">
+<body>
 
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-white border-b border-zinc-200">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-x-3">
-                    <div class="w-11 h-11 bg-gradient-to-br from-blue-600 to-violet-600 rounded-2xl flex items-center justify-center">
-                        <span class="text-white text-3xl font-black">آ</span>
-                    </div>
-                    <h1 class="text-2xl font-black tracking-tighter">آزاد اندیشان</h1>
-                </div>
-
-                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
-                    <a onclick="showSection('home')" class="cursor-pointer hover:text-blue-600">صفحه اصلی</a>
-                    <a onclick="showSection('projects')" class="cursor-pointer hover:text-blue-600">لیست پروژه‌ها</a>
-                    <a onclick="showSection('comments')" class="cursor-pointer hover:text-blue-600">نظر کاربران</a>
-                    <a onclick="showSection('about')" class="cursor-pointer hover:text-blue-600">درباره ما</a>
-                    <a onclick="showSection('admin-comments')" class="cursor-pointer hover:text-blue-600 font-bold">مدیریت نظرات</a>
-                </div>
-
-                <div class="relative">
-                    <button onclick="toggleMenu()" class="w-10 h-10 flex items-center justify-center rounded-2xl hover:bg-zinc-100">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                    <div id="menu-dropdown" class="hidden absolute left-0 mt-2 w-52 bg-white rounded-3xl shadow-xl border border-zinc-200 py-2 z-50">
-                        <div onclick="showSection('home'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer">صفحه اصلی</div>
-                        <div onclick="showSection('projects'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer">لیست پروژه‌ها</div>
-                        <div onclick="showSection('comments'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer">نظر کاربران</div>
-                        <div onclick="showSection('about'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer">درباره ما</div>
-                        <div onclick="showSection('admin-comments'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer text-blue-600 font-bold">مدیریت نظرات</div>
-                        <div class="border-t my-1"></div>
-                        <div onclick="showSection('contact'); toggleMenu()" class="px-5 py-3 hover:bg-zinc-100 cursor-pointer text-blue-600">ارتباط با ما</div>
-                    </div>
-                </div>
-            </div>
+<!-- هدر -->
+<div class="header">
+    <div class="logo">آزاد اندیشان</div>
+    
+    <div class="nav-container">
+        <!-- ثبت نام / ورود کاربران -->
+        <div id="user-auth">
+            <button onclick="showRegisterModal()" style="background:#475569; padding:8px 16px; font-size:14px;">ثبت‌نام</button>
+            <button onclick="showLoginModal()" style="background:#475569; padding:8px 16px; font-size:14px;">ورود</button>
         </div>
-    </nav>
-
-    <!-- جستجو -->
-    <div class="max-w-7xl mx-auto px-6 pt-6">
-        <div class="relative max-w-md mx-auto">
-            <input id="search-input" type="text" placeholder="جستجو در سایت..." class="w-full bg-white border border-zinc-300 rounded-3xl py-3 px-5 pl-12 text-sm focus:outline-none focus:border-blue-500">
-            <i class="fa-solid fa-search absolute right-5 top-4 text-zinc-400"></i>
-        </div>
-    </div>
-
-    <!-- صفحه اصلی -->
-    <div id="home" class="section active max-w-7xl mx-auto px-6 pt-8">
-        <div class="text-center py-12">
-            <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-600 to-violet-600 rounded-[2.5rem] mb-6 shadow-xl">
-                <span class="text-white text-6xl font-black">آ</span>
-            </div>
-            <h1 class="text-5xl font-black tracking-tighter mb-3">آزاد اندیشان</h1>
-            <p class="text-2xl text-zinc-600 mb-8">ایده از شما ؛ طراحی سایت از ما</p>
-            <div class="flex justify-center gap-4">
-                <button onclick="showSection('projects')" class="px-8 py-3.5 bg-blue-600 text-white rounded-3xl font-bold">مشاهده پروژه‌ها</button>
-                <button onclick="showSection('contact')" class="px-8 py-3.5 border border-zinc-300 rounded-3xl font-bold">سفارش پروژه</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- لیست پروژه‌ها -->
-    <div id="projects" class="section max-w-7xl mx-auto px-6 pt-8">
-        <h2 class="text-3xl font-black mb-8">لیست پروژه‌ها</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="project-card bg-white p-6 rounded-3xl border border-zinc-200">
-                <h3 class="font-bold text-xl mb-2">فروشگاه کتاب</h3>
-                <p class="text-sm text-zinc-600 mb-6">فروشگاه آنلاین کتاب با جستجو و سبد خرید</p>
-                <button onclick="orderProject('فروشگاه کتاب')" class="w-full py-3 bg-zinc-900 text-white rounded-2xl font-bold text-sm">سفارش این پروژه</button>
-            </div>
-            <div class="project-card bg-white p-6 rounded-3xl border border-zinc-200">
-                <h3 class="font-bold text-xl mb-2">فروشگاه ساعت</h3>
-                <p class="text-sm text-zinc-600 mb-6">فروشگاه آنلاین ساعت با فیلتر و پرداخت</p>
-                <button onclick="orderProject('فروشگاه ساعت')" class="w-full py-3 bg-zinc-900 text-white rounded-2xl font-bold text-sm">سفارش این پروژه</button>
-            </div>
-            <div class="project-card bg-white p-6 rounded-3xl border border-zinc-200">
-                <h3 class="font-bold text-xl mb-2">فروشگاه زنجیره‌ای</h3>
-                <p class="text-sm text-zinc-600 mb-6">وبسایت فروشگاهی با چند دسته‌بندی</p>
-                <button onclick="orderProject('فروشگاه زنجیره‌ای')" class="w-full py-3 bg-zinc-900 text-white rounded-2xl font-bold text-sm">سفارش این پروژه</button>
-            </div>
-        </div>
-        <div class="mt-8 flex gap-3">
-            <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
-        </div>
-    </div>
-
-    <!-- نظر کاربران (ثبت نظر) -->
-    <div id="comments" class="section max-w-7xl mx-auto px-6 pt-8">
-        <h2 class="text-3xl font-black mb-8">نظر کاربران</h2>
         
-        <div class="bg-white rounded-3xl p-6 border border-zinc-200 mb-8">
-            <h4 class="font-bold mb-4">نظر خود را ثبت کنید</h4>
-            <div class="space-y-4">
-                <input id="comment-name" type="text" placeholder="نام شما" class="w-full px-4 py-3 bg-zinc-100 border border-zinc-200 rounded-2xl text-sm">
-                <textarea id="comment-text" placeholder="نظر شما..." rows="3" class="w-full px-4 py-3 bg-zinc-100 border border-zinc-200 rounded-3xl text-sm resize-none"></textarea>
-                <button onclick="submitComment()" class="px-6 py-2.5 bg-blue-600 text-white rounded-2xl text-sm font-bold">ارسال نظر</button>
+        <!-- منوی همبرگری -->
+        <div onclick="toggleMenu()" class="hamburger">☰</div>
+    </div>
+</div>
+
+<!-- منو -->
+<div class="menu" id="menu">
+    <a href="#" onclick="showPage('home')">صفحه اصلی</a>
+    <a href="#" onclick="showPage('order')">سفارش پروژه</a>
+    <a href="#" onclick="showPage('contact')">ارتباط با ما</a>
+    <a href="#" onclick="showPage('comments')">نظر کاربران</a>
+    <a href="#" onclick="showPage('admin')">پنل مدیریت</a>
+</div>
+
+<!-- صفحه اصلی -->
+<div id="home" class="page active">
+    <h1 class="section-title">به آزاد اندیشان خوش آمدید</h1>
+    <p style="text-align:center; margin-bottom:30px; color:#94a3b8;">محتوای آپلود شده توسط مدیر</p>
+    
+    <div class="media-grid" id="home-media"></div>
+</div>
+
+<!-- صفحه سفارش پروژه -->
+<div id="order" class="page">
+    <button class="back-btn" onclick="showPage('home')">← بازگشت</button>
+    <h2 class="section-title">سفارش پروژه</h2>
+    
+    <div class="shop-grid">
+        <!-- فروشگاه ساعت -->
+        <div class="card">
+            <h3>فروشگاه ساعت</h3>
+            <p>ساعت‌های لوکس و هوشمند</p>
+            <button onclick="goToContact()">سفارش پروژه</button>
+        </div>
+        
+        <!-- فروشگاه کتاب -->
+        <div class="card">
+            <h3>فروشگاه کتاب</h3>
+            <p>کتاب‌های تخصصی و عمومی</p>
+            <button onclick="goToContact()">سفارش پروژه</button>
+        </div>
+        
+        <!-- فروشگاه زنجیره‌ای -->
+        <div class="card">
+            <h3>فروشگاه زنجیره‌ای</h3>
+            <p>طراحی و توسعه فروشگاه‌های زنجیره‌ای</p>
+            <button onclick="goToContact()">سفارش پروژه</button>
+        </div>
+    </div>
+</div>
+
+<!-- صفحه ارتباط با ما -->
+<div id="contact" class="page">
+    <button class="back-btn" onclick="showPage('home')">← بازگشت</button>
+    <h2 class="section-title">ارتباط با ما</h2>
+    
+    <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">
+        <button onclick="window.open('https://t.me/Azad_Andishan_Top', '_blank')">تلگرام</button>
+        <button onclick="window.open('https://eitaa.com/Azad_andishan', '_blank')">ایتا</button>
+        <button onclick="window.open('https://rubika.ir/Azad_Andishan_Top', '_blank')">روبیکا</button>
+    </div>
+</div>
+
+<!-- صفحه نظر کاربران -->
+<div id="comments" class="page">
+    <button class="back-btn" onclick="showPage('home')">← بازگشت</button>
+    <h2 class="section-title">نظر کاربران</h2>
+    
+    <div class="card">
+        <h3>ثبت نظر</h3>
+        <input type="text" id="comment-name" class="form-input" placeholder="نام کاربری" disabled>
+        <textarea id="comment-text" class="form-input" placeholder="نظر خود را بنویسید..." rows="4"></textarea>
+        <button onclick="submitComment()">ثبت نظر</button>
+    </div>
+    
+    <div id="comments-list"></div>
+</div>
+
+<!-- پنل مدیریت -->
+<div id="admin" class="page">
+    <button class="back-btn" onclick="showPage('home')">← بازگشت</button>
+    <h2 class="section-title">پنل مدیریت</h2>
+    
+    <!-- فرم ورود -->
+    <div id="admin-login">
+        <div class="card">
+            <h3>ورود به پنل مدیریت</h3>
+            <input type="email" id="admin-email" class="form-input" placeholder="ایمیل">
+            <input type="tel" id="admin-phone" class="form-input" placeholder="شماره تلفن">
+            <input type="password" id="admin-password" class="form-input" placeholder="رمز عبور">
+            <button onclick="adminLogin()">ورود</button>
+        </div>
+    </div>
+    
+    <!-- بخش مدیریت -->
+    <div id="admin-panel" style="display:none;">
+        <button onclick="adminLogout()" style="background:#ef4444;">خروج از پنل</button>
+        
+        <!-- آپلود فایل -->
+        <div class="card">
+            <h3>آپلود فایل</h3>
+            <input type="file" id="file-upload" accept="image/*,video/*,audio/*,.txt,.pdf,.doc,.docx">
+            <div style="margin:15px 0;">
+                <div class="progress-bar" id="progress"></div>
             </div>
+            <button onclick="uploadFile()">آپلود</button>
         </div>
-        <div id="comments-list" class="space-y-4"></div>
         
-        <div class="mt-8 flex gap-3">
-            <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
+        <!-- مدیریت نظرات -->
+        <div class="card">
+            <h3>مدیریت نظرات</h3>
+            <div id="admin-comments"></div>
         </div>
-    </div>
-
-    <!-- بخش جدید: مدیریت نظرات (برای خواندن نظرات) -->
-    <div id="admin-comments" class="section max-w-7xl mx-auto px-6 pt-8">
-        <h2 class="text-3xl font-black mb-8">مدیریت نظرات</h2>
-        <p class="text-zinc-600 mb-6">در این بخش می‌توانید نظرات کاربران را مشاهده و به آن‌ها پاسخ دهید.</p>
         
-        <div id="admin-comments-list" class="space-y-4"></div>
+        <!-- مدیریت فایل‌ها -->
+        <div class="card">
+            <h3>مدیریت فایل‌های آپلود شده</h3>
+            <div id="admin-files"></div>
+        </div>
+    </div>
+</div>
+
+<!-- مودال بزرگنمایی رسانه -->
+<div id="media-modal" class="modal" onclick="closeMediaModal()">
+    <div class="modal-content" onclick="event.stopImmediatePropagation()">
+        <div id="modal-content"></div>
+        <button onclick="closeMediaModal()" style="margin-top:15px; background:#475569;">بستن</button>
+    </div>
+</div>
+
+<!-- مودال ثبت‌نام -->
+<div id="register-modal" class="modal">
+    <div class="modal-content">
+        <h3>ثبت‌نام کاربر</h3>
+        <input type="text" id="reg-username" class="form-input" placeholder="نام کاربری">
+        <input type="email" id="reg-email" class="form-input" placeholder="ایمیل">
+        <input type="tel" id="reg-phone" class="form-input" placeholder="شماره همراه">
+        <input type="password" id="reg-password" class="form-input" placeholder="رمز عبور">
+        <button onclick="registerUser()">ثبت‌نام</button>
+        <button onclick="closeModals()" style="background:#475569;">انصراف</button>
+    </div>
+</div>
+
+<!-- مودال ورود کاربر -->
+<div id="login-modal" class="modal">
+    <div class="modal-content">
+        <h3>ورود کاربر</h3>
+        <input type="tel" id="login-phone" class="form-input" placeholder="شماره همراه">
+        <input type="password" id="login-password" class="form-input" placeholder="رمز عبور">
+        <button onclick="loginUser()">ورود</button>
+        <button onclick="closeModals()" style="background:#475569;">انصراف</button>
+    </div>
+</div>
+
+<script>
+// ==================== داده‌های محلی ====================
+let currentUser = null;
+let uploads = JSON.parse(localStorage.getItem('uploads')) || [];
+let comments = JSON.parse(localStorage.getItem('comments')) || [];
+let users = JSON.parse(localStorage.getItem('users')) || [];
+
+// ==================== منو ====================
+function toggleMenu() {
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('active');
+}
+
+// ==================== تغییر صفحه ====================
+function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(page).classList.add('active');
+    document.getElementById('menu').classList.remove('active');
+    
+    if (page === 'home') renderHomeMedia();
+    if (page === 'comments') renderComments();
+    if (page === 'admin') checkAdminLogin();
+}
+
+// ==================== صفحه اصلی - نمایش رسانه‌ها ====================
+function renderHomeMedia() {
+    const container = document.getElementById('home-media');
+    container.innerHTML = '';
+    
+    uploads.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'media-card';
         
-        <div class="mt-8 flex gap-3">
-            <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
-        </div>
-    </div>
-
-    <!-- درباره ما -->
-    <div id="about" class="section max-w-7xl mx-auto px-6 pt-8">
-        <div class="max-w-2xl">
-            <h2 class="text-3xl font-black mb-6">درباره ما</h2>
-            <p class="text-lg leading-relaxed text-zinc-600">تیم آزاد اندیشان با تمرکز بر طراحی سایت‌های مدرن و کاربردی، آماده تبدیل ایده‌های شما به واقعیت است.</p>
-        </div>
-        <div class="mt-8 flex gap-3">
-            <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
-        </div>
-    </div>
-
-    <!-- ارتباط با ما -->
-    <div id="contact" class="section max-w-7xl mx-auto px-6 pt-8">
-        <h2 class="text-3xl font-black mb-8">ارتباط با ما</h2>
-        <div class="grid md:grid-cols-3 gap-4">
-            <a href="https://eitaa.com/Azad_andishan" target="_blank" class="flex items-center gap-x-4 bg-white p-5 rounded-3xl border border-zinc-200 hover:border-blue-500">
-                <i class="fa-brands fa-telegram text-3xl text-sky-500"></i>
-                <div><div class="font-bold">ایتا</div><div class="text-sm text-zinc-500">@Azad_andishan</div></div>
-            </a>
-            <a href="https://rubika.ir/Azad_Andishan_Top" target="_blank" class="flex items-center gap-x-4 bg-white p-5 rounded-3xl border border-zinc-200 hover:border-blue-500">
-                <i class="fa-brands fa-whatsapp text-3xl text-emerald-500"></i>
-                <div><div class="font-bold">روبیکا</div><div class="text-sm text-zinc-500">@Azad_Andishan_Top</div></div>
-            </a>
-            <a href="https://t.me/azadandishan_orginal" target="_blank" class="flex items-center gap-x-4 bg-white p-5 rounded-3xl border border-zinc-200 hover:border-blue-500">
-                <i class="fa-brands fa-telegram text-3xl text-blue-500"></i>
-                <div><div class="font-bold">تلگرام</div><div class="text-sm text-zinc-500">@azadandishan_orginal</div></div>
-            </a>
-        </div>
-        <div class="mt-8 flex gap-3">
-            <button onclick="showSection('home')" class="px-5 py-2 text-sm border border-zinc-300 rounded-2xl">بازگشت به صفحه اصلی</button>
-        </div>
-    </div>
-
-    <!-- فوتر -->
-    <div class="max-w-7xl mx-auto px-6 mt-16 pb-8">
-        <div class="flex flex-col md:flex-row items-center justify-between text-sm text-zinc-500 border-t border-zinc-200 pt-6">
-            <div>با مدیریت محمد حسین تقی پور ۱۴۰۵</div>
-            <div class="flex items-center gap-x-2 mt-4 md:mt-0">
-                <i class="fa-solid fa-users"></i>
-                <span id="visitor-count">۱۲۴۸</span>
-                <span>بازدید</span>
+        let mediaHTML = '';
+        if (item.type.startsWith('image')) {
+            mediaHTML = `<img src="${item.data}" onclick="openMediaModal(${index})">`;
+        } else if (item.type.startsWith('video')) {
+            mediaHTML = `<video controls onclick="openMediaModal(${index})"><source src="${item.data}" type="${item.type}"></video>`;
+        } else {
+            mediaHTML = `<div style="padding:60px 20px; text-align:center; background:#475569; cursor:pointer;" onclick="openMediaModal(${index})">
+                📁 ${item.name}
+            </div>`;
+        }
+        
+        card.innerHTML = `
+            ${mediaHTML}
+            <div class="media-info">
+                <p><strong>${item.caption || ''}</strong></p>
             </div>
-        </div>
-    </div>
+        `;
+        container.appendChild(card);
+    });
+}
 
-    <script>
-        function toggleMenu() {
-            document.getElementById('menu-dropdown').classList.toggle('hidden');
+function openMediaModal(index) {
+    const modal = document.getElementById('media-modal');
+    const content = document.getElementById('modal-content');
+    const item = uploads[index];
+    
+    let html = '';
+    if (item.type.startsWith('image')) {
+        html = `<img src="${item.data}" style="max-width:100%; border-radius:12px;">`;
+    } else if (item.type.startsWith('video')) {
+        html = `<video controls style="max-width:100%; border-radius:12px;"><source src="${item.data}" type="${item.type}"></video>`;
+    } else {
+        html = `<a href="${item.data}" download style="color:#60a5fa;">دانلود فایل ${item.name}</a>`;
+    }
+    
+    content.innerHTML = html;
+    modal.style.display = 'flex';
+}
+
+function closeMediaModal() {
+    document.getElementById('media-modal').style.display = 'none';
+}
+
+// ==================== آپلود فایل ====================
+function uploadFile() {
+    const fileInput = document.getElementById('file-upload');
+    const progress = document.getElementById('progress');
+    
+    if (!fileInput.files.length) {
+        alert('لطفاً فایلی انتخاب کنید');
+        return;
+    }
+    
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    
+    progress.style.width = '0%';
+    
+    reader.onload = function(e) {
+        const newUpload = {
+            id: Date.now(),
+            name: file.name,
+            type: file.type,
+            data: e.target.result,
+            caption: prompt('کپشن (اختیاری):') || ''
+        };
+        
+        uploads.push(newUpload);
+        localStorage.setItem('uploads', JSON.stringify(uploads));
+        
+        progress.style.width = '100%';
+        setTimeout(() => {
+            alert('فایل با موفقیت آپلود شد!');
+            progress.style.width = '0%';
+            fileInput.value = '';
+            renderAdminFiles();
+            renderHomeMedia();
+        }, 500);
+    };
+    
+    reader.readAsDataURL(file);
+}
+
+// ==================== مدیریت فایل‌ها ====================
+function renderAdminFiles() {
+    const container = document.getElementById('admin-files');
+    container.innerHTML = '';
+    
+    uploads.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.style.cssText = 'background:#334155; padding:15px; margin:10px 0; border-radius:10px;';
+        div.innerHTML = `
+            <p><strong>${item.name}</strong></p>
+            <input type="text" value="${item.caption || ''}" id="caption-${index}" style="width:100%; margin:8px 0; padding:8px; background:#475569; border:none; color:white;">
+            <button onclick="updateFile(${index})">ویرایش کپشن</button>
+            <button onclick="deleteFile(${index})" style="background:#ef4444;">حذف</button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function updateFile(index) {
+    const newCaption = document.getElementById(`caption-${index}`).value;
+    uploads[index].caption = newCaption;
+    localStorage.setItem('uploads', JSON.stringify(uploads));
+    alert('کپشن به‌روزرسانی شد');
+    renderAdminFiles();
+    renderHomeMedia();
+}
+
+function deleteFile(index) {
+    if (confirm('آیا مطمئن هستید؟')) {
+        uploads.splice(index, 1);
+        localStorage.setItem('uploads', JSON.stringify(uploads));
+        renderAdminFiles();
+        renderHomeMedia();
+    }
+}
+
+// ==================== نظرات ====================
+function submitComment() {
+    if (!currentUser) {
+        alert('لطفاً ابتدا ثبت‌نام و ورود کنید');
+        return;
+    }
+    
+    const text = document.getElementById('comment-text').value.trim();
+    if (!text) return alert('نظر را وارد کنید');
+    
+    const newComment = {
+        id: Date.now(),
+        username: currentUser.username,
+        text: text,
+        reply: null,
+        date: new Date().toLocaleDateString('fa-IR')
+    };
+    
+    comments.push(newComment);
+    localStorage.setItem('comments', JSON.stringify(comments));
+    
+    document.getElementById('comment-text').value = '';
+    renderComments();
+    renderAdminComments();
+}
+
+function renderComments() {
+    const container = document.getElementById('comments-list');
+    container.innerHTML = '';
+    
+    comments.forEach(comment => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `
+            <p><strong>${comment.username}</strong> - ${comment.date}</p>
+            <p>${comment.text}</p>
+            ${comment.reply ? `<div style="margin-top:10px; padding:10px; background:#475569; border-radius:8px;"><strong>پاسخ مدیر:</strong> ${comment.reply}</div>` : ''}
+        `;
+        container.appendChild(div);
+    });
+}
+
+function renderAdminComments() {
+    const container = document.getElementById('admin-comments');
+    container.innerHTML = '';
+    
+    comments.forEach((comment, index) => {
+        const div = document.createElement('div');
+        div.style.cssText = 'background:#334155; padding:15px; margin:10px 0; border-radius:10px;';
+        div.innerHTML = `
+            <p><strong>${comment.username}</strong>: ${comment.text}</p>
+            <textarea id="reply-${index}" style="width:100%; margin:8px 0;" placeholder="پاسخ مدیر">${comment.reply || ''}</textarea>
+            <button onclick="saveReply(${index})">ثبت پاسخ</button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function saveReply(index) {
+    const replyText = document.getElementById(`reply-${index}`).value.trim();
+    comments[index].reply = replyText;
+    localStorage.setItem('comments', JSON.stringify(comments));
+    alert('پاسخ ثبت شد');
+    renderAdminComments();
+    renderComments();
+}
+
+// ==================== ورود مدیر ====================
+function adminLogin() {
+    const email = document.getElementById('admin-email').value.trim();
+    const phone = document.getElementById('admin-phone').value.trim();
+    const pass = document.getElementById('admin-password').value.trim();
+    
+    if (email === 'mh.tiger0903727@gmail.com' && 
+        phone === '09059115627' && 
+        pass === 'mh.mohandes0905') {
+        
+        document.getElementById('admin-login').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+        
+        renderAdminComments();
+        renderAdminFiles();
+    } else {
+        alert('اطلاعات ورود اشتباه است!');
+    }
+}
+
+function checkAdminLogin() {
+    document.getElementById('admin-login').style.display = 'block';
+    document.getElementById('admin-panel').style.display = 'none';
+}
+
+function adminLogout() {
+    document.getElementById('admin-login').style.display = 'block';
+    document.getElementById('admin-panel').style.display = 'none';
+    showPage('home');
+}
+
+// ==================== ثبت‌نام و ورود کاربر ====================
+function showRegisterModal() {
+    document.getElementById('register-modal').style.display = 'flex';
+}
+
+function showLoginModal() {
+    document.getElementById('login-modal').style.display = 'flex';
+}
+
+function closeModals() {
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+}
+
+function registerUser() {
+    const username = document.getElementById('reg-username').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const phone = document.getElementById('reg-phone').value.trim();
+    const password = document.getElementById('reg-password').value.trim();
+    
+    if (!username || !email || !phone || !password) {
+        return alert('همه فیلدها الزامی هستند');
+    }
+    
+    if (users.find(u => u.phone === phone)) {
+        return alert('این شماره قبلاً ثبت شده است');
+    }
+    
+    users.push({ username, email, phone, password });
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    alert('ثبت‌نام موفق بود! حالا وارد شوید.');
+    closeModals();
+    showLoginModal();
+}
+
+function loginUser() {
+    const phone = document.getElementById('login-phone').value.trim();
+    const password = document.getElementById('login-password').value.trim();
+    
+    const user = users.find(u => u.phone === phone && u.password === password);
+    
+    if (user) {
+        currentUser = user;
+        document.getElementById('user-auth').innerHTML = `
+            <span style="color:#60a5fa;">${user.username}</span>
+            <button onclick="logoutUser()" style="background:#475569; padding:8px 16px; font-size:14px;">خروج</button>
+        `;
+        closeModals();
+        document.getElementById('comment-name').value = user.username;
+        document.getElementById('comment-name').disabled = false;
+        alert('خوش آمدید!');
+    } else {
+        alert('شماره یا رمز اشتباه است');
+    }
+}
+
+function logoutUser() {
+    currentUser = null;
+    document.getElementById('user-auth').innerHTML = `
+        <button onclick="showRegisterModal()" style="background:#475569; padding:8px 16px; font-size:14px;">ثبت‌نام</button>
+        <button onclick="showLoginModal()" style="background:#475569; padding:8px 16px; font-size:14px;">ورود</button>
+    `;
+    document.getElementById('comment-name').value = '';
+    document.getElementById('comment-name').disabled = true;
+}
+
+// ==================== انتقال به صفحه ارتباط ====================
+function goToContact() {
+    showPage('contact');
+}
+
+// ==================== راه‌اندازی اولیه ====================
+function init() {
+    // نمایش صفحه اصلی
+    document.getElementById('home').classList.add('active');
+    
+    // رندر اولیه رسانه‌ها
+    renderHomeMedia();
+    
+    // اگر کاربری قبلاً لاگین کرده بود
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+    }
+    
+    // بستن منو با کلیک بیرون
+    document.addEventListener('click', function(e) {
+        const menu = document.getElementById('menu');
+        if (!e.target.closest('.nav-container') && menu.classList.contains('active')) {
+            menu.classList.remove('active');
         }
+    });
+}
 
-        function showSection(section) {
-            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-            document.getElementById(section).classList.add('active');
-            document.getElementById('menu-dropdown').classList.add('hidden');
+init();
+</script>
 
-            if (section === 'admin-comments') {
-                renderAdminComments();
-            }
-        }
-
-        function orderProject(name) {
-            showSection('contact');
-            setTimeout(() => {
-                alert(`پروژه "${name}" انتخاب شد. لطفاً از طریق لینک‌های ارتباط با ما اقدام کنید.`);
-            }, 300);
-        }
-
-        let comments = JSON.parse(localStorage.getItem('comments')) || [];
-
-        function renderComments() {
-            const container = document.getElementById('comments-list');
-            container.innerHTML = '';
-            comments.forEach(c => {
-                const div = document.createElement('div');
-                div.className = 'bg-white p-5 rounded-3xl border border-zinc-200';
-                div.innerHTML = `
-                    <div class="flex items-center gap-x-3 mb-3">
-                        <div class="w-9 h-9 bg-zinc-200 rounded-full flex items-center justify-center font-bold">${c.name[0]}</div>
-                        <span class="font-bold">${c.name}</span>
-                    </div>
-                    <p class="text-zinc-600 mb-4">${c.text}</p>
-                    ${c.replies && c.replies.length > 0 ? 
-                        `<div class="pr-4 text-sm text-blue-600 border-r-2 border-blue-500"><strong>پاسخ مدیر:</strong> ${c.replies[0].text}</div>` : ''}
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function renderAdminComments() {
-            const container = document.getElementById('admin-comments-list');
-            container.innerHTML = '';
-            
-            if (comments.length === 0) {
-                container.innerHTML = '<p class="text-zinc-500">هنوز نظری ثبت نشده است.</p>';
-                return;
-            }
-
-            comments.forEach((c, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-white p-6 rounded-3xl border border-zinc-200';
-                div.innerHTML = `
-                    <div class="flex items-center gap-x-3 mb-3">
-                        <div class="w-9 h-9 bg-zinc-200 rounded-full flex items-center justify-center font-bold">${c.name[0]}</div>
-                        <span class="font-bold">${c.name}</span>
-                    </div>
-                    <p class="text-zinc-700 mb-4">${c.text}</p>
-                    
-                    ${c.replies && c.replies.length > 0 ? 
-                        `<div class="mb-4 pr-4 text-sm text-blue-600 border-r-2 border-blue-500"><strong>پاسخ شما:</strong> ${c.replies[0].text}</div>` : ''}
-                    
-                    <div class="flex gap-2">
-                        <input type="text" id="reply-${index}" placeholder="پاسخ شما..." class="flex-1 px-4 py-2 border border-zinc-300 rounded-2xl text-sm">
-                        <button onclick="addReply(${index})" class="px-5 bg-blue-600 text-white rounded-2xl text-sm font-bold">ارسال پاسخ</button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function addReply(index) {
-            const input = document.getElementById(`reply-${index}`);
-            const replyText = input.value.trim();
-            if (!replyText) return;
-
-            if (!comments[index].replies) comments[index].replies = [];
-            comments[index].replies[0] = { text: replyText };
-            
-            localStorage.setItem('comments', JSON.stringify(comments));
-            renderAdminComments();
-            renderComments();
-            input.value = '';
-        }
-
-        function submitComment() {
-            const name = document.getElementById('comment-name').value.trim();
-            const text = document.getElementById('comment-text').value.trim();
-            if (!name || !text) { alert('نام و نظر را وارد کنید'); return; }
-
-            comments.unshift({ id: Date.now(), name, text, replies: [] });
-            localStorage.setItem('comments', JSON.stringify(comments));
-            renderComments();
-            document.getElementById('comment-name').value = '';
-            document.getElementById('comment-text').value = '';
-        }
-
-        function updateVisitorCount() {
-            let count = parseInt(localStorage.getItem('visitorCount')) || 1248;
-            count++;
-            localStorage.setItem('visitorCount', count);
-            document.getElementById('visitor-count').innerText = count.toLocaleString('fa-IR');
-        }
-
-        function init() {
-            document.getElementById('home').classList.add('active');
-            renderComments();
-            updateVisitorCount();
-
-            document.addEventListener('click', function(e) {
-                const menu = document.getElementById('menu-dropdown');
-                if (!e.target.closest('button') && !menu.contains(e.target)) {
-                    menu.classList.add('hidden');
-                }
-            });
-        }
-
-        window.onload = init;
-    </script>
 </body>
 </html>
