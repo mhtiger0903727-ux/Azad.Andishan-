@@ -203,6 +203,36 @@
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 20px;
         }
+        
+.media-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.like-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.stats {
+    display: flex;
+    gap: 15px;
+    color: #94a3b8;
+}
+
+.comment-box {
+    background: #334155;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 8px 0;
+}
+
     </style>
 </head>
 <body>
@@ -340,11 +370,27 @@
     </div>
 </div>
 
-<!-- مودال بزرگنمایی رسانه -->
-<div id="media-modal" class="modal" onclick="closeMediaModal()">
-    <div class="modal-content" onclick="event.stopImmediatePropagation()">
-        <div id="modal-content"></div>
-        <button onclick="closeMediaModal()" style="margin-top:15px; background:#475569;">بستن</button>
+<!-- مودال نمایش رسانه + لایک و کامنت -->
+<div id="media-modal" class="modal">
+    <div class="modal-content">
+        <div id="modal-media"></div>
+        
+        <div class="media-actions" style="margin:15px 0; display:flex; justify-content:space-between; align-items:center;">
+            <button onclick="likeMedia()" class="like-btn">❤️ <span id="like-count">0</span></button>
+            <div class="stats">
+                <span>👁️ <span id="view-count">0</span></span>
+            </div>
+        </div>
+
+        <h4 style="margin-top:15px;">نظرات</h4>
+        <div id="media-comments" style="max-height:200px; overflow-y:auto;"></div>
+        
+        <div style="margin-top:15px;">
+            <textarea id="media-comment-input" class="form-input" placeholder="نظر خود را بنویسید..." rows="2"></textarea>
+            <button onclick="addMediaComment()" style="margin-top:8px;">ارسال نظر</button>
+        </div>
+        
+        <button onclick="closeMediaModal()" style="margin-top:15px; background:#475569; width:100%;">بستن</button>
     </div>
 </div>
 
@@ -376,6 +422,7 @@
 // ==================== داده‌های محلی ====================
 let currentUser = null;
 let uploads = JSON.parse(localStorage.getItem('uploads')) || [];
+let currentMediaIndex = null;
 let comments = JSON.parse(localStorage.getItem('comments')) || [];
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -400,7 +447,7 @@ function showPage(page) {
 function renderHomeMedia() {
     const container = document.getElementById('home-media');
     container.innerHTML = '';
-    
+
     uploads.forEach((item, index) => {
         const card = document.createElement('div');
         card.className = 'media-card';
@@ -409,17 +456,19 @@ function renderHomeMedia() {
         if (item.type.startsWith('image')) {
             mediaHTML = `<img src="${item.data}" onclick="openMediaModal(${index})">`;
         } else if (item.type.startsWith('video')) {
-            mediaHTML = `<video controls onclick="openMediaModal(${index})"><source src="${item.data}" type="${item.type}"></video>`;
+            mediaHTML = `<video onclick="openMediaModal(${index})"><source src="${item.data}" type="${item.type}"></video>`;
         } else {
-            mediaHTML = `<div style="padding:60px 20px; text-align:center; background:#475569; cursor:pointer;" onclick="openMediaModal(${index})">
-                📁 ${item.name}
-            </div>`;
+            mediaHTML = `<div style="padding:60px 20px; text-align:center; background:#475569; cursor:pointer;" onclick="openMediaModal(${index})">📁 ${item.name}</div>`;
         }
-        
+
         card.innerHTML = `
             ${mediaHTML}
             <div class="media-info">
                 <p><strong>${item.caption || ''}</strong></p>
+                <div class="media-actions">
+                    <button onclick="event.stopImmediatePropagation(); likeFromCard(${index})" class="like-btn">❤️ ${item.likes || 0}</button>
+                    <span style="color:#94a3b8;">👁️ ${item.views || 0}</span>
+                </div>
             </div>
         `;
         container.appendChild(card);
@@ -714,6 +763,97 @@ function init() {
             menu.classList.remove('active');
         }
     });
+}
+
+// باز کردن مودال رسانه
+function openMediaModal(index) {
+    currentMediaIndex = index;
+    const item = uploads[index];
+    const modal = document.getElementById('media-modal');
+    
+    // افزایش تعداد بازدید
+    if (!item.views) item.views = 0;
+    item.views++;
+    localStorage.setItem('uploads', JSON.stringify(uploads));
+    
+    // نمایش محتوا
+    let mediaHTML = '';
+    if (item.type.startsWith('image')) {
+        mediaHTML = `<img src="${item.data}" style="max-width:100%; border-radius:12px;">`;
+    } else if (item.type.startsWith('video')) {
+        mediaHTML = `<video controls style="max-width:100%; border-radius:12px;"><source src="${item.data}" type="${item.type}"></video>`;
+    } else {
+        mediaHTML = `<a href="${item.data}" download style="color:#60a5fa;">دانلود فایل</a>`;
+    }
+    
+    document.getElementById('modal-media').innerHTML = mediaHTML;
+    document.getElementById('like-count').innerText = item.likes || 0;
+    document.getElementById('view-count').innerText = item.views || 0;
+    
+    renderMediaComments();
+    modal.style.display = 'flex';
+}
+
+function closeMediaModal() {
+    document.getElementById('media-modal').style.display = 'none';
+    currentMediaIndex = null;
+    renderHomeMedia();
+}
+
+// لایک از داخل مودال
+function likeMedia() {
+    if (currentMediaIndex === null) return;
+    const item = uploads[currentMediaIndex];
+    if (!item.likes) item.likes = 0;
+    item.likes++;
+    localStorage.setItem('uploads', JSON.stringify(uploads));
+    
+    document.getElementById('like-count').innerText = item.likes;
+    renderHomeMedia();
+}
+
+// لایک از روی کارت
+function likeFromCard(index) {
+    const item = uploads[index];
+    if (!item.likes) item.likes = 0;
+    item.likes++;
+    localStorage.setItem('uploads', JSON.stringify(uploads));
+    renderHomeMedia();
+}
+
+// نمایش کامنت‌های محتوا
+function renderMediaComments() {
+    const container = document.getElementById('media-comments');
+    container.innerHTML = '';
+    const item = uploads[currentMediaIndex];
+    
+    if (!item.mediaComments) item.mediaComments = [];
+    
+    item.mediaComments.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'comment-box';
+        div.innerHTML = `<strong>${c.user}</strong><br>${c.text}`;
+        container.appendChild(div);
+    });
+}
+
+// اضافه کردن کامنت جدید
+function addMediaComment() {
+    const input = document.getElementById('media-comment-input');
+    const text = input.value.trim();
+    if (!text || currentMediaIndex === null) return;
+    
+    const item = uploads[currentMediaIndex];
+    if (!item.mediaComments) item.mediaComments = [];
+    
+    const username = currentUser ? currentUser.username : 'کاربر ناشناس';
+    
+    item.mediaComments.push({ user: username, text: text });
+    localStorage.setItem('uploads', JSON.stringify(uploads));
+    
+    input.value = '';
+    renderMediaComments();
+    renderHomeMedia();
 }
 
 init();
