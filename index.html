@@ -9,1191 +9,1129 @@
       --bg:#0f172a;
       --panel:#111827;
       --card:#1f2937;
-      --muted:#94a3b8;
+      --soft:#334155;
       --text:#e5e7eb;
-      --accent:#38bdf8;
-      --accent2:#22c55e;
+      --muted:#94a3b8;
+      --accent:#22c55e;
+      --accent2:#38bdf8;
       --danger:#ef4444;
-      --warning:#f59e0b;
-      --border:#334155;
+      --warn:#f59e0b;
+      --border:rgba(255,255,255,.08);
       --shadow:0 10px 30px rgba(0,0,0,.25);
       --radius:18px;
     }
     *{box-sizing:border-box;font-family:tahoma, sans-serif}
     body{
       margin:0;
-      background:linear-gradient(180deg,#08111f 0%, #0f172a 100%);
+      background:linear-gradient(180deg,#0b1220 0%, #111827 100%);
       color:var(--text);
       min-height:100vh;
     }
-    a,button,input,select,textarea{font:inherit}
-    button{
-      cursor:pointer;
-      border:none;
-      border-radius:12px;
-      padding:10px 14px;
-      transition:.2s;
-    }
-    button:hover{opacity:.9; transform:translateY(-1px)}
-    .hidden{display:none !important}
-    .container{width:min(1200px,94%);margin:auto}
+    .container{max-width:1400px;margin:0 auto;padding:16px}
     .topbar{
-      position:sticky;top:0;z-index:20;
-      backdrop-filter: blur(10px);
-      background:rgba(15,23,42,.8);
-      border-bottom:1px solid rgba(51,65,85,.8);
-    }
-    .topbar .inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px 0;
-    }
-    .brand{
-      font-size:22px;
-      font-weight:700;
-      color:#fff;
-      letter-spacing:-.5px;
-    }
-    .nav-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{
-      background:var(--card);
-      color:var(--text);
-      border:1px solid var(--border);
-    }
-    .btn.primary{background:var(--accent);color:#00111d;font-weight:700}
-    .btn.success{background:var(--accent2);color:#052e16;font-weight:700}
-    .btn.danger{background:var(--danger);color:#fff;font-weight:700}
-    .btn.warning{background:var(--warning);color:#111827;font-weight:700}
-    .btn.small{padding:8px 10px;border-radius:10px;font-size:13px}
-    .grid{
-      display:grid;
-      gap:18px;
-    }
-    .auth-wrap{
-      min-height:calc(100vh - 74px);
-      display:grid;
-      place-items:center;
-      padding:30px 0;
-    }
-    .auth-box, .panel{
-      background:rgba(17,24,39,.92);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
-    .auth-box{
-      width:min(520px,100%);
-      padding:24px;
-    }
-    .tabs{display:flex;gap:10px;margin-bottom:18px}
-    .tabs button{
-      flex:1;
-      background:#0b1220;
-      color:var(--muted);
-      border:1px solid var(--border);
-    }
-    .tabs button.active{
-      background:var(--accent);
-      color:#00111d;
-      font-weight:700;
-    }
-    .title{
-      font-size:24px;
-      margin:0 0 6px;
-    }
-    .subtitle{color:var(--muted);margin:0 0 18px;line-height:1.8}
-    .field{margin-bottom:14px}
-    .field label{
-      display:block;
-      margin-bottom:7px;
-      color:#cbd5e1;
-      font-size:14px;
-    }
-    .field input, .field textarea, .field select{
-      width:100%;
-      padding:12px 14px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:#0b1220;
-      color:var(--text);
-      outline:none;
-    }
-    .field textarea{min-height:110px;resize:vertical}
-    .hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.7}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .row > *{flex:1}
-    .main{
-      padding:18px 0 30px;
-    }
-    .app-layout{
-      display:grid;
-      grid-template-columns: 280px 1fr;
-      gap:18px;
-      align-items:start;
-    }
-    .sidebar, .chat-area, .admin-content{
-      background:rgba(17,24,39,.92);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
-    .sidebar{padding:16px; position:sticky; top:84px}
-    .user-chip{
       display:flex;align-items:center;justify-content:space-between;
-      padding:12px 14px;background:#0b1220;border:1px solid var(--border);
-      border-radius:14px;margin-bottom:12px;
+      gap:12px;padding:16px 18px;background:rgba(17,24,39,.88);
+      border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);
+      position:sticky;top:12px;z-index:50;backdrop-filter:blur(12px);
     }
-    .user-chip .name{font-weight:700}
-    .user-chip .status{color:var(--muted);font-size:12px}
-    .menu{display:grid;gap:10px;margin-top:10px}
-    .menu button{
-      width:100%;
-      text-align:right;
-      background:#0b1220;
-      color:var(--text);
-      border:1px solid var(--border);
-      padding:12px 14px;
+    .brand{font-size:20px;font-weight:700;color:#fff}
+    .nav-actions,.auth-tabs,.toolbar,.admin-actions{display:flex;gap:8px;flex-wrap:wrap}
+    button,.btn{
+      border:0;border-radius:12px;padding:10px 14px;cursor:pointer;
+      background:var(--soft);color:var(--text);transition:.2s ease;font-weight:700
     }
-    .menu button.active{background:rgba(56,189,248,.15);border-color:var(--accent);color:#dbeafe}
-    .chat-area{padding:16px;min-height:calc(100vh - 120px)}
-    .chat-head{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:14px;
-      flex-wrap:wrap;
+    button:hover,.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+    .btn-primary{background:linear-gradient(135deg,var(--accent),#16a34a);color:#081018}
+    .btn-blue{background:linear-gradient(135deg,var(--accent2),#0ea5e9);color:#081018}
+    .btn-danger{background:linear-gradient(135deg,#fb7185,var(--danger));color:#fff}
+    .btn-warn{background:linear-gradient(135deg,var(--warn),#f97316);color:#111}
+    .btn-ghost{background:transparent;border:1px solid var(--border)}
+    .view{margin-top:16px}
+    .hidden{display:none !important}
+
+    /* Auth */
+    .auth-wrap{
+      margin-top:18px;display:grid;grid-template-columns:1fr;gap:16px;
     }
-    .chat-head .left, .chat-head .right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .pill{
-      padding:8px 12px;border-radius:999px;
-      background:#0b1220;border:1px solid var(--border);
-      color:#cbd5e1;font-size:13px;
+    .hero,.card,.panel{
+      background:rgba(17,24,39,.90);border:1px solid var(--border);
+      border-radius:var(--radius);box-shadow:var(--shadow);
     }
-    .messages{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      max-height:58vh;
-      overflow:auto;
-      padding:6px;
-      margin-bottom:14px;
+    .hero{padding:24px}
+    .hero h1{margin:0 0 10px;font-size:28px}
+    .hero p{margin:0;color:var(--muted);line-height:1.8}
+    .panel{padding:18px}
+    .panel h2{margin:0 0 14px;font-size:20px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .field{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+    .field label{color:#cbd5e1;font-size:14px}
+    .field input,.field textarea,.field select{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+      background:#0b1220;color:var(--text);outline:none
     }
-    .msg{
-      background:#0b1220;
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:12px;
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(56,189,248,.65)}
+    .hint{font-size:12px;color:var(--muted);line-height:1.8}
+    .msg{padding:10px 12px;border-radius:12px;margin:10px 0;font-size:14px;line-height:1.8}
+    .msg.error{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25)}
+    .msg.success{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25)}
+    .msg.info{background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25)}
+
+    /* App */
+    .app-layout{
+      display:grid;grid-template-columns:280px 1fr;gap:16px;margin-top:16px;
+      min-height:calc(100vh - 120px);
     }
-    .msg .meta{
-      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
-      margin-bottom:8px;color:var(--muted);font-size:12px
+    .sidebar,.chat-area,.admin-area{
+      background:rgba(17,24,39,.90);border:1px solid var(--border);border-radius:var(--radius);
+      box-shadow:var(--shadow);overflow:hidden
     }
-    .msg .body{white-space:pre-wrap;line-height:1.9}
-    .msg .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .composer{
-      background:#0b1220;
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:12px;
+    .sidebar{padding:14px}
+    .section-title{
+      display:flex;align-items:center;justify-content:space-between;
+      margin:10px 0 12px;font-weight:700;color:#fff
     }
-    .composer-top{
-      display:grid;
-      grid-template-columns: 1fr 190px;
-      gap:10px;
-      margin-bottom:10px;
+    .user-item,.chat-item{
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      padding:11px 12px;border:1px solid var(--border);border-radius:12px;
+      background:rgba(255,255,255,.03);margin-bottom:8px;cursor:pointer
     }
-    .composer-top textarea{
-      min-height:70px;
-      width:100%;
-      background:#08101d;
-      color:var(--text);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:12px;
-      resize:vertical;
-    }
-    .composer-top .tools{
-      display:grid;
-      gap:10px;
-    }
-    .composer-top .tools button, .composer-top .tools label{
-      background:#08101d;
-      color:var(--text);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:11px 12px;
-      text-align:center;
-      display:block;
-    }
-    .composer-bottom{
-      display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;
-    }
-    .progress-wrap{
-      flex:1;
-      min-width:220px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .progress{
-      height:10px;
-      background:#111827;
-      border:1px solid var(--border);
-      border-radius:999px;
-      overflow:hidden;
-      flex:1;
-    }
-    .progress > div{
-      width:0%;
-      height:100%;
-      background:linear-gradient(90deg,var(--accent),#60a5fa);
-      transition:width .25s ease;
-    }
-    .admin-layout{
-      display:grid;
-      grid-template-columns: 260px 1fr;
-      gap:18px;
-      align-items:start;
-    }
-    .admin-sidebar{
-      padding:16px;
-      position:sticky;
-      top:84px;
-    }
-    .admin-content{padding:16px}
-    .table{
-      width:100%;
-      border-collapse:collapse;
-      overflow:hidden;
-      border-radius:16px;
-      margin-top:10px;
-    }
-    .table th,.table td{
-      border-bottom:1px solid var(--border);
-      padding:12px;
-      text-align:right;
-      vertical-align:middle;
-    }
-    .table th{color:#cbd5e1;background:#0b1220}
+    .user-item:hover,.chat-item:hover{background:rgba(255,255,255,.06)}
     .badge{
-      display:inline-block;
-      padding:5px 9px;
-      border-radius:999px;
-      font-size:12px;
-      border:1px solid var(--border);
+      font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);color:#fff
     }
-    .badge.ok{background:rgba(34,197,94,.15);color:#86efac}
-    .badge.warn{background:rgba(245,158,11,.15);color:#fcd34d}
-    .badge.danger{background:rgba(239,68,68,.15);color:#fca5a5}
-    .footer-note{color:var(--muted);font-size:12px;line-height:1.8;margin-top:10px}
-    .notice{
-      padding:12px 14px;
-      border:1px dashed #475569;
-      background:rgba(15,23,42,.6);
-      border-radius:14px;
-      margin-bottom:14px;
-      color:#cbd5e1;
-      line-height:1.8;
+    .badge.active{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3)}
+    .badge.limited{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.3)}
+    .badge.deleted{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3)}
+
+    .chat-area{display:flex;flex-direction:column;min-height:0}
+    .chat-head{
+      padding:14px 16px;border-bottom:1px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between;gap:10px
     }
-    .online-list{
-      display:grid;
-      gap:8px;
-      margin-top:10px;
-      max-height:250px;
-      overflow:auto;
+    .chat-head h3{margin:0;font-size:18px}
+    .chat-head small{color:var(--muted)}
+    .messages{
+      padding:16px;flex:1;overflow:auto;display:flex;flex-direction:column;gap:12px;
+      min-height:360px;max-height:calc(100vh - 320px)
     }
-    .online-user{
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      background:#0b1220;
-      display:flex;
-      justify-content:space-between;
-      gap:8px;
+    .bubble{
+      max-width:78%;padding:12px 12px 10px;border-radius:16px;border:1px solid var(--border);
+      background:rgba(255,255,255,.04)
     }
-    .mini{
-      color:var(--muted);font-size:12px
+    .bubble.me{margin-right:auto;background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.25)}
+    .bubble.other{margin-left:auto;background:rgba(56,189,248,.10);border-color:rgba(56,189,248,.25)}
+    .bubble.system{max-width:100%;background:rgba(148,163,184,.08)}
+    .meta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px;margin-bottom:8px}
+    .content{white-space:pre-wrap;line-height:1.9}
+    .reply-box{
+      border-right:3px solid var(--accent2);padding:8px 10px;margin-bottom:8px;background:rgba(56,189,248,.08);
+      border-radius:10px;font-size:12px;color:#dbeafe
+    }
+    .actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+    .actions button{padding:6px 10px;font-size:12px;border-radius:10px}
+    .attachment{
+      margin-top:10px;padding:10px;border:1px dashed var(--border);border-radius:12px;background:rgba(255,255,255,.03)
+    }
+    .attachment img,.attachment video{max-width:100%;border-radius:10px}
+    .attachment audio{width:100%}
+    .composer{
+      padding:14px 16px;border-top:1px solid var(--border);background:rgba(0,0,0,.10)
+    }
+    .reply-bar{
+      display:none;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;
+      padding:10px 12px;border-radius:12px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25)
+    }
+    .reply-bar.show{display:flex}
+    .reply-bar .x{cursor:pointer;font-weight:900}
+    textarea{
+      width:100%;min-height:94px;resize:vertical;padding:12px 14px;border-radius:14px;border:1px solid var(--border);
+      background:#0b1220;color:var(--text);outline:none;line-height:1.8
+    }
+    .composer-footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center}
+    .progress-wrap{
+      margin-top:10px;height:10px;background:#0b1220;border-radius:999px;overflow:hidden;border:1px solid var(--border)
+    }
+    .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+    .sticker-panel{
+      display:none;flex-wrap:wrap;gap:8px;margin-top:10px;padding:10px;border:1px solid var(--border);
+      background:rgba(255,255,255,.03);border-radius:12px
+    }
+    .sticker-panel.show{display:flex}
+    .sticker{
+      width:40px;height:40px;border-radius:12px;border:1px solid var(--border);display:grid;place-items:center;
+      cursor:pointer;font-size:22px;background:rgba(255,255,255,.04)
     }
 
-    @media (max-width: 900px){
-      .app-layout,.admin-layout{grid-template-columns:1fr}
-      .sidebar,.admin-sidebar{position:static}
-      .composer-top{grid-template-columns:1fr}
-      .topbar .inner{flex-direction:column;align-items:flex-start}
+    /* Admin */
+    .admin-area{padding:16px}
+    .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+    .table{
+      width:100%;border-collapse:collapse;overflow:hidden;border-radius:14px;border:1px solid var(--border)
+    }
+    .table th,.table td{
+      padding:10px 8px;text-align:right;border-bottom:1px solid var(--border);font-size:14px;vertical-align:top
+    }
+    .table th{background:rgba(255,255,255,.04)}
+    .small{font-size:12px;color:var(--muted);line-height:1.8}
+    .chip{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
+    .chip.ok{background:rgba(34,197,94,.12)}
+    .chip.off{background:rgba(239,68,68,.12)}
+    .chip.warn{background:rgba(245,158,11,.12)}
+    .banner{
+      padding:12px 14px;border-radius:14px;border:1px solid rgba(245,158,11,.3);
+      background:rgba(245,158,11,.12);margin:12px 0
+    }
+
+    @media (max-width: 980px){
+      .grid-2,.app-layout,.admin-grid{grid-template-columns:1fr}
+      .bubble{max-width:100%}
+      .sidebar{order:2}
+      .chat-area{order:1}
     }
   </style>
 </head>
 <body>
-
-  <header class="topbar">
-    <div class="container inner">
+  <div class="container">
+    <header class="topbar">
       <div class="brand">چت آزاد اندیشان</div>
       <div class="nav-actions">
-        <button class="btn primary" id="goRegisterBtn">ثبت‌نام</button>
-        <button class="btn" id="goLoginBtn">ورود</button>
-        <button class="btn warning hidden" id="goChatBtn">چت</button>
-        <button class="btn success hidden" id="goAdminBtn">پنل مدیریت</button>
-        <button class="btn danger hidden" id="logoutBtn">خروج</button>
+        <button id="navRegister" class="btn-primary">ثبت‌نام</button>
+        <button id="navLogin" class="btn-blue">ورود</button>
+        <button id="navAdmin" class="btn-ghost">پنل مدیریت</button>
+        <button id="navLogout" class="btn-danger hidden">خروج</button>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- AUTH VIEW -->
-  <section class="auth-wrap" id="authView">
-    <div class="auth-box">
-      <div class="tabs">
-        <button id="tabRegister" class="active">ثبت‌نام</button>
-        <button id="tabLogin">ورود</button>
-      </div>
-
-      <div id="registerPanel">
-        <h1 class="title">ساخت حساب کاربری</h1>
-        <p class="subtitle">برای ورود به پیام‌رسان، اول باید ثبت‌نام کنی.</p>
-
-        <div class="field">
-          <label>نام کاربری *</label>
-          <input id="regUsername" placeholder="مثلاً: ali123 یا علی" autocomplete="off" />
-          <div class="hint">الزامی، منحصر‌به‌فرد، فارسی یا انگلیسی.</div>
+    <!-- AUTH VIEW -->
+    <section id="authView" class="view">
+      <div class="auth-wrap">
+        <div class="hero">
+          <h1>به چت آزاد اندیشان خوش آمدی</h1>
+          <p>
+            برای استفاده از پیام‌رسان، اول ثبت‌نام کن یا وارد شو.
+            پنل مدیریت هم فقط با نام کاربری و رمز عبور ثابت خودش باز می‌شود.
+          </p>
         </div>
 
-        <div class="field">
-          <label>input id="regPassword">
-          <input id="regPassword" type="password" placeholder="حداقل ۵ کاراکتر" />
-          <div class="hint">باید حداقل ۵ کاراکتر و شامل حروف و عدد باشد.</div>
-        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="auth-tabs">
+              <button id="tabRegister" class="btn-primary">ثبت‌نام</button>
+              <button id="tabLogin" class="btn-ghost">ورود</button>
+            </div>
+            <div id="authMessage"></div>
 
-        <div class="field">
-          <label>آدرس ایمیل جیمیل (اختیاری)</label>
-          <input id="regEmail" type="email" placeholder="example@gmail.com" autocomplete="off" />
-        </div>
+            <form id="registerForm">
+              <h2>ثبت‌نام کاربر</h2>
+              <div class="field">
+                <label>نام کاربری *</label>
+                <input type="text" id="regUsername" autocomplete="off" placeholder="مثلاً: ali123 یا علی" />
+                <div class="hint">نام کاربری باید یکتا باشد و می‌تواند فارسی یا انگلیسی باشد.</div>
+              </div>
+              <div class="field">
+                <label>رمز عبور *</label>
+                <input type="password" id="regPassword" placeholder="حداقل ۵ کاراکتر + حروف و عدد" />
+                <div class="hint">رمز باید حداقل ۵ کاراکتر باشد و ترکیبی از حروف و اعداد داشته باشد.</div>
+              </div>
+              <div class="field">
+                <label>آدرس ایمیل جیمیل (اختیاری)</label>
+                <input type="email />
+              </divEmail" placeholder="example@gmail.com" />
+              </div>
+              <button class="btn-primary" type="submit">ثبت‌نام</button>
+            </form>
 
-        <button class="btn primary" style="width:100%" id="registerBtn">ثبت‌نام</button>
-        <p class="footer-note">بعد از ثبت‌نام می‌تونی وارد چت بشی و پیام بدی 😎</p>
-      </div>
-
-      <div id="loginPanel" class="hidden">
-        <h1 class="title">ورود به حساب</h1>
-       title">ورود به حساب</h1>
-        عبورت را وارد کن.</p>
-
-        <div class="field">
-          <label>نام کاربری</label>
-          <input id="loginUsername" placeholder="نام کاربری ثبت‌شده" autocomplete="off" />
-        </div>
-
-        <div class="field">
-          <label>رمز عبور</label>
-          <input id="loginPassword" type="password" placeholder="رمز عبور" />
-        </div>
-
-        <button class="btn primary" style="width:100%" id="loginBtn">ورود</button>
-        <p class="footer-note">ورود مدیر فقط با نام کاربری <b>mohammad</b> و رمز <b>mh.mohandes0905</b> ممکن است.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CHAT VIEW -->
-  <main class="main hidden" id="chatView">
-    <div class="container app-layout">
-      <aside class="sidebar">
-        <div class="user-chip">
-          <div>
-            <div class="name" id="currentUserName">کاربر</div>
-            <div class="status" id="currentUserStatus">آنلاین</div>
+            <form id="loginForm" class="hidden">
+              <h2>ورود کاربر</h2>
+              <div class="field">
+                <label>نام کاربری</label>
+                <input type="text" id="loginUsername" autocomplete="off" placeholder="نام کاربری ثبت‌شده" />
+              </div>
+              <div class="field">
+                <label>رمز عبور</label>
+                <input type="password" id="loginPassword" placeholder="رمز عبور ثبت‌شده" />
+              </div>
+              <button class="btn-blue" type="submit">ورود</button>
+            </form>
           </div>
-          <div class="mini" id="currentUserRole">member</div>
-        </div>
 
-        <div class="notice">
-          این نسخه، نسخه‌ی اولیه است و همه‌چیز با حافظه مرورگر ذخیره می‌شود.
-          برای نسخه واقعی، باید بک‌اند هم اضافه کنیم.
-        </div>
-
-        <div class="menu">
-          <button class="active" data-chatmode="public">چت عمومی</button>
-          <button data-chatmode="pv">پیام خصوصی (PV)</button>
-          <button data-chatmode="files">فایل‌ها / مدیا</button>
-          <button data-chatmode="profile">پروفایل</button>
-        </div>
-
-        <div style="margin-top:16px">
-          <div class="mini" style="margin-bottom:8px">اعضای آنلاین</div>
-          <div class="online-list" id="onlineList"></div>
-        </div>
-      </aside>
-
-      <section class="chat-area">
-        <div class="chat-head">
-          <div class="left">
-            <span class="pill" id="chatModeLabel">چت عمومی</span>
-            <span class="pill">کاربر: <b id="meLabel">-</b></span>
-          </div>
-          <div class="right">
-            <button class="btn small" id="refreshBtn">به‌روزرسانی</button>
+          <div class="panel">
+            <h2>ورود مدیر</h2>
+            <div class="small">
+              فقط این اطلاعات اجازه ورود دارند:
+              <br>نام کاربری: <b>mohammad</b>
+              <br>رمز عبور: <b>mh.mohandes0905</b>
+            </div>
+            <div class="banner">
+              <b>توجه:</b> این نسخه برای دمو/شروع پروژه است و فعلاً با LocalStorage کار می‌کند.
+            </div>
+            <form id="adminLoginForm">
+              <div class="field">
+                <label>نام کاربری مدیر</label>
+                <input type="text" id="adminUsername" autocomplete="off" placeholder="mohammad" />
+              </div>
+              <div class="field">
+                <label>رمز عبور مدیر</label>
+                <input type="password" id="adminPassword" placeholder="mh.mohandes0905" />
+              </div>
+              <button class="btn-danger" type="submit">ورود به پنل مدیریت</button>
+            </form>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div id="publicChatPanel">
-          <div class="messages" id="messagesList"></div>
+    <!-- USER APP VIEW -->
+    <section id="appView" class="view hidden">
+      <div class="app-layout">
+        <aside class="sidebar">
+          <div class="section-title">
+            <span>گفتگوها</span>
+            <button id="openPublic" class="btn-primary" style="padding:7px 10px">چت عمومی</button>
+          </div>
+
+          <div class="small" id="currentUserInfo"></div>
+
+          <div class="section-title">
+            <span>اعضا</span>
+            <span class="badge active">آنلاین / لیست</span>
+          </div>
+          <div id="usersList"></div>
+        </aside>
+
+        <main class="chat-area">
+          <div class="chat-head">
+            <div>
+              <h3 id="chatTitle">چت عمومی</h3>
+              <small id="chatSubtitle">همه پیام‌های عمومی اینجا نمایش داده می‌شوند.</small>
+            </div>
+            <div class="admin-actions">
+              <button id="clearReply" class="btn-ghost hidden">لغو پاسخ</button>
+            </div>
+          </div>
+
+          <div id="messages" class="messages"></div>
 
           <div class="composer">
-            <div class="composer-top">
-              <textarea id="messageInput" placeholder="پیامت را بنویس..."></textarea>
-              <div class="tools">
-                <button id="sendStickerBtn">ارسال استیکر</button>
-                <label for="fileInput">انتخاب فایل</label>
-                <input id="fileInput" type="file" class="hidden" multiple />
-                <button id="sendFileBtn">ارسال فایل</button>
-                <button id="sendGifBtn">ارسال گیف</button>
+            <div id="replyBar" class="reply-bar">
+              <span id="replyText">در حال پاسخ دادن...</span>
+              <span class="x" id="cancelReply">✕</span>
+            </div>
+
+            <textarea id="messageText" placeholder="پیام خود را بنویس..."></textarea>
+
+            <div class="composer-footer">
+              <div class="toolbar">
+                <button id="stickerBtn" class="btn-ghost" type="button">استیکر</button>
+                <button id="fileBtn" class="btn-ghost" type="button">عکس / ویدیو / صدا / فایل</button>
+                <input id="fileInput" type="file" class="hidden" />
+              </div>
+              <="fileInput" type="file" class="hidden" />
+              </div>
+              <="button">ارسال</button>
               </div>
             </div>
-            <div class="composer-bottom">
-              <div class="progress-wrap">
-                <span class="mini">پیشرفت آپلود</span>
-                <div class="progress"><div id="uploadBar"></div></div>
-                <span class="mini" id="uploadPercent">0%</span>
-              </div>
-              <button class="btn success" id="sendMsgBtn">ارسال پیام</button>
-            </div>
-            <div class="hint">امکانات: پاسخ، فوروارد، حذف، و پیام خصوصی. حذف پیام خودت به‌صورت دوطرفه ثبت می‌شود.</div>
-          </div>
-        </div>
 
-        <div id="pvPanel" class="hidden">
-          <div class="composer" style="margin-bottom:14px">
-            <div class="row">
-              <div class="field" style="margin:0">
-                <label>ارسال پیام خصوصی به</label>
-                <select id="pvTarget"></select>
-              </div>
-              <div class="field" style="margin:0">
-                <label>نوع پیام</label>
-                <select id="pvType">
-                  <option value="text">متن</option>
-                  <option value="sticker">استیکر</option>
-                  <option value="file">فایل</option>
-                </select>
-              </div>
+            <div id="progressWrap" class="progress-wrap hidden">
+              <div id="progressBar" class="progress-bar"></div>
             </div>
-            <div class="field">
-              <label>متن / توضیح پیام خصوصی</label>
-              <textarea id="pvInput" placeholder="پیام خصوصی..."></textarea>
-            </div>
-            <button class="btn success" id="sendPvBtn">ارسال PV</button>
-          </div>
-          <div class="messages" id="pvMessagesList"></div>
-        </div>
 
-        <div id="filesPanel" class="hidden">
-          <div class="notice">
-            این بخش برای نمایش فایل‌های ارسال‌شده است: عکس، ویدیو، صدا، گیف، استیکر و فایل.
-          </div>
-          <div class="messages" id="filesList"></div>
-        </div>
-
-        <div id="profilePanel" class="hidden">
-          <div class="panel" style="padding:16px">
-            <h2 style="margin-top:0">پروفایل کاربر</h2>
-            <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-              <div class="notice">نام کاربری: <b id="profileUsername">-</b></div>
-              <div class="notice">ایمیل: <b id="profileEmail">-</b></div>
-              <div class="notice">وضعیت: <b id="profileStatus">فعال</b></div>
-              <div class="notice">نقش: <b id="profileRole">member</b></div>
+            <div id="stickerPanel" class="sticker-panel">
+              <div class="sticker">😀</div>
+              <div class="sticker">😂</div>
+              <div class="sticker">😍</div>
+              <div class="sticker">😎</div>
+              <div class="sticker">👍</div>
+              <div class="sticker">❤️</div>
+              <div class="sticker">🔥</div>
+              <div class="sticker">🎉</div>
+              <div class="sticker">🤝</div>
+              <div class="sticker">💬</div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
-  </main>
+        </main>
+      </div>
+    </section>
 
-  <!-- ADMIN VIEW -->
-  <main class="main hidden" id="adminView">
-    <div class="container admin-layout">
-      <aside class="admin-sidebar sidebar">
-        <div class="user-chip">
-          <div>
-            <div class="name">پنل مدیریت</div>
-            <div class="status">فقط مدیر</div>
+    <!-- ADMIN VIEW -->
+    <section id="adminView" class="view hidden">
+      <div class="admin-area">
+        <div class="section-title">
+          <span>پنل مدیریت</span>
+          <span class="badge warn">فقط مدیر مجاز است</span>
+        </div>
+        <div class="small">
+          این بخش برای مدیریت اعضا، محدودسازی و حذف/برگرداندن کاربران است.
+        </div>
+
+        <div class="admin-grid">
+          <div class="panel">
+            <h2>مدیریت اعضا</h2>
+            <div id="membersTableWrap"></div>
           </div>
-          <div class="mini">admin</div>
-        </div>
 
-        <div class="menu">
-          <button class="active" data-adminmode="members">مدیریت اعضا</button>
-          <button data-adminmode="blocked">اعضای حذف یا محدود شده</button>
+          <div class="panel">
+            <h2>اعضای حذف یا محدود شده</h2>
+            <div id="blockedListWrap"></div>
+          </div>
         </div>
-
-        <div class="notice" style="margin-top:16px">
-          ورود مدیر فقط با:
-          <br>نام کاربری: <b>mohammad</b>
-          <br>رمز عبور: <b>mh.mohandes0905</b>
-        </div>
-
-        <button class="btn danger" id="backToChatBtn" style="width:100%">بازگشت به چت</button>
-      </aside>
-
-      <section class="admin-content">
-        <div id="adminMembersPanel">
-          <h2 style="margin-top:0">مدیریت اعضا</h2>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>نام کاربری</th>
-                <th>ایمیل</th>
-                <th>وضعیت</th>
-                <th>عملیات</th>
-              </tr>
-            </thead>
-            <tbody id="membersTable"></tbody>
-          </table>
-        </div>
-
-        <div id="adminBlockedPanel" class="hidden">
-          <h2 style="margin-top:0">اعضای حذف یا محدود شده</h2>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>نام کاربری</th>
-                <th>وضعیت</th>
-                <th>عملیات</th>
-              </tr>
-            </thead>
-            </thead>
-           blockedTable"></tbody>
-          </table>
-        </div>
-      </section>
-    </div>
-  </main>
+      </div>
+    </section>
+  </div>
 
   <script>
-    const ADMIN_USER = 'mohammad';
-    const ADMIN_PASS = 'mh.mohandes0905';
+    const ADMIN = { username: "mohammad", password: "mh.mohandes0905" };
 
-    const $ = (id) => document.getElementById(id);
+    const STORAGE_USERS = "azad_users_v1";
+    const STORAGE_MESSAGES = "azad_messages_v1";
 
-    const els = {
-      authView: $('authView'),
-      chatView: $('chatView'),
-      adminView: $('adminView'),
-      tabRegister: $('tabRegister'),
-      tabLogin: $('tabLogin'),
-      registerPanel: $('registerPanel'),
-      loginPanel: $('loginPanel'),
-      regUsername: $('regUsername'),
-     '),
-     : $('regPassword'),
-      regEmail: $('regEmail'),
-      registerBtn: $('registerBtn'),
-      loginUsername: $('loginUsername'),
-      loginPassword: $('loginPassword'),
-      loginBtn: $('loginBtn'),
-      goRegisterBtn: $('goRegisterBtn'),
-      goLoginBtn: $('goLoginBtn'),
-      goChatBtn: $('goChatBtn'),
-      goAdminBtn: $('goAdminBtn'),
-      logoutBtn: $('logoutBtn'),
-      currentUserName: $('currentUserName'),
-      currentUserStatus: $('currentUserStatus'),
-      currentUserRole: $('currentUserRole'),
-      meLabel: $('meLabel'),
-      chatModeLabel: $('chatModeLabel'),
-      messagesList: $('messagesList'),
-      pvMessagesList: $('pvMessagesList'),
-      filesList: $('filesList'),
-      messageInput: $('messageInput'),
-      sendMsgBtn: $('sendMsgBtn'),
-      sendStickerBtn: $('sendStickerBtn'),
-      sendGifBtn: $('sendGifBtn'),
-      fileInput: $('fileInput'),
-      sendFileBtn: $('sendFileBtn'),
-      uploadBar: $('uploadBar'),
-      uploadPercent: $('uploadPercent'),
-      onlineList: $('onlineList'),
-      pvTarget: $('pvTarget'),
-      pvType: $('pvType'),
-      pvInput: $('pvInput'),
-      sendPvBtn: $('sendPvBtn'),
-      profileUsername: $('profileUsername'),
-      profileEmail: $('profileEmail'),
-      profileStatus: $('profileStatus'),
-      profileRole: $('profileRole'),
-      publicChatPanel: $('publicChatPanel'),
-      pvPanel: $('pvPanel'),
-      filesPanel: $('filesPanel'),
-      profilePanel: $('profilePanel'),
-      refreshBtn: $('refreshBtn'),
-      backToChatBtn: $('backToChatBtn'),
-      adminMembersPanel: $('adminMembersPanel'),
-      adminBlockedPanel: $('adminBlockedPanel'),
-      membersTable: $('membersTable'),
-      blockedTable: $('blockedTable'),
-    };
-
-    let state = {
+    const state = {
+      users: load(STORAGE_USERS, []),
+      messages: load(STORAGE_MESSAGES, []),
       currentUser: null,
-      chatMode: 'public',
-      adminMode: 'members',
+      isAdmin: false,
+      chat: { type: "public", target: null },
       replyTo: null,
-      forwardFrom: null
+      pendingFile: null,
+      pendingSticker: null
     };
 
-    function initStorage(){
-      if (!localStorage.getItem('azad_users')) {
-        localStorage.setItem('azad_users', JSON.stringify([
-          { username:'علی', password:'Ali123', email:'', status:'active', role:'member' },
-          { username:'zahra99', password:'Zahra123', email:'', status:'active', role:'member' }
-        ]));
-      }
-      if (!localStorage.getItem('azad_messages')) localStorage.setItem('azad_messages', JSON.stringify([]));
-      if (!localStorage.getItem('azad_pv')) localStorage.setItem('azad_pv', JSON.stringify([]));
-      if (!localStorage.getItem('azad_files')) localStorage.setItem('azad_files', JSON.stringify([]));
-      if (!localStorage.getItem('azad_deleted')) localStorage.setItem('azad_deleted', JSON.stringify([]));
+    const el = {
+      authView: document.getElementById("authView"),
+      appView: document.getElementById("appView"),
+      adminView: document.getElementById("adminView"),
+      authMessage: document.getElementById("authMessage"),
+      registerForm: document.getElementById("registerForm"),
+      loginForm: document.getElementById("loginForm"),
+      adminLoginForm: document.getElementById("adminLoginForm"),
+      tabRegister: document.getElementById("tabRegister"),
+      tabLogin: document.getElementById("tabLogin"),
+      navRegister: document.getElementById("navRegister"),
+      navLogin: document.getElementById("navLogin"),
+      navAdmin: document.getElementById("navAdmin"),
+      navLogout: document.getElementById("navLogout"),
+      usersList: document.getElementById("usersList"),
+      messages: document.getElementById("messages"),
+      chatTitle: document.getElementById("chatTitle"),
+      chatSubtitle: document.getElementById("chatSubtitle"),
+      currentUserInfo: document.getElementById("currentUserInfo"),
+      messageText: document.getElementById("messageText"),
+      sendBtn: document.getElementById("sendBtn"),
+      fileBtn: document.getElementById("fileBtn"),
+      fileInput: document.getElementById("fileInput"),
+      stickerBtn: document.getElementById("stickerBtn"),
+      stickerPanel: document.getElementById("stickerPanel"),
+      progress(": document.getElementById("progressWrap"),
+      progressBar: document.getElementById("progressBar"),
+      replyBar: document.getElementById("replyBar"),
+      replyText: document.getElementById("replyText"),
+      cancelReply: document.getElementById("cancelReply"),
+      clearReply: document.getElementById("clearReply"),
+      openPublic: document.getElementById("openPublic"),
+      adminUsername: document.getElementById("adminUsername"),
+      adminPassword: document.getElementById("adminPassword"),
+      loginUsername: document.getElementById("loginUsername"),
+      loginPassword: document.getElementById("loginPassword"),
+      regUsername: document.getElementById("regUsername"),
+      regPassword: document.getElementById("regPassword"),
+      regEmail: document.getElementById("regEmail"),
+      membersTableWrap: document.getElementById("membersTableWrap"),
+      blockedListWrap: document.getElementById("blockedListWrap")
+    };
+
+    function load(key, fallback){
+      try{
+        const v = localStorage.getItem(key);
+        return v ? JSON.parse(v) : fallback;
+      }catch(e){ return fallback; }
     }
-
-    const getUsers = () => JSON.parse(localStorage.getItem('azad_users') || '[]');
-    const setUsers = (users) => localStorage.setItem('azad_users', JSON.stringify(users));
-
-    const getMessages = () => JSON.parse(localStorage.getItem('azad_messages') || '[]');
-    const setMessages = (m) => localStorage.setItem('azad_messages', JSON.stringify(m));
-
-    const getPv = () => JSON.parse(localStorage.getItem('azad_pv') || '[]');
-    const setPv = (m) => localStorage.setItem('azad_pv', JSON.stringify(m));
-
-    const getFiles = () => JSON.parse(localStorage.getItem('azad_files') || '[]');
-    const setFiles = (m) => localStorage.setItem('azad_files', JSON.stringify(m));
-
-    const getDeleted = () => JSON.parse(localStorage.getItem('azad_deleted') || '[]');
-    const setDeleted = (m) => localStorage.setItem('azad_deleted', JSON.stringify(m));
-
-    function saveSession(user){
-      sessionStorage.setItem('azad_currentUser', JSON.stringify(user));
-    }
-    function loadSession(){
-      const u = sessionStorage.getItem('azad_currentUser');
-      return u ? JSON.parse(u) : null;
-    }
-    function clearSession(){
-      sessionStorage.removeItem('azad_currentUser');
-    }
-
-    function isGmail(email){
-      return email === '' || /^[^\s@]+@gmail\.com$/i.test(email);
-    }
-
-    function isStrongPassword(pass){
-      return /^(?=.*[A-Za-z])(?=.*\d).{5,}$/.test(pass);
+    function save(){
+      localStorage.setItem(STORAGE_USERS, JSON.stringify(state.users));
+      localStorage.setItem(STORAGE_MESSAGES, JSON.stringify(state.messages));
     }
 
     function uid(){
-      return Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+      return Date.now() + Math.random().toString(16).slice(2);
     }
 
-    function showView(view){
-      els.authView.classList.toggle('hidden', view !== 'auth');
-      els.chatView.classList.toggle('hidden', view !== 'chat');
-      els.adminView.classList.toggle('hidden', view !== 'admin');
+    function showAuth(){
+      el.authView.classList.remove("hidden");
+      el.appView.classList.add("hidden");
+      el.adminView.classList.add("hidden");
+      el.navLogout.classList.add("hidden");
+      el.navRegister.classList.remove("hidden");
+      el.navLogin.classList.remove("hidden");
+      el.navAdmin.classList.remove("hidden");
     }
 
-    function setTopButtons(authenticated){
-      els.goChatBtn.classList.toggle('hidden', !authenticated);
-      els.goAdminBtn.classList.toggle('hidden', !authenticated);
-      els.logoutBtn.classList.toggle('hidden', !authenticated);
-      els.goRegisterBtn.classList.toggle('hidden', authenticated);
-      els.goLoginBtn.classList.toggle('hidden', authenticated);
+    function showUserApp(){
+      el.authView.classList.add("hidden");
+      el.appView.classList.remove("hidden");
+      el.adminView.classList.add("hidden");
+      el.navLogout.classList.remove("hidden");
+      el.navRegister.classList.add("hidden");
+      el.navLogin.classList.add("hidden");
+      el.navAdmin.classList.add("hidden");
+      renderAll();
     }
 
-    function updateOnline(){
-      const users = getUsers().filter(u => u.status !== 'deleted');
-      const all = state.currentUser ? [state.currentUser.username, ...users.map(u => u.username)] : users.map(u => u.username);
-      const uniq = [...new Set(all)];
-      els.onlineList.innerHTML = uniq.map(name => `
-        <div class="online-user">
-          <span>${name}</span>
-          <span class="badge ok">آنلاین</span>
+    function showAdmin(){
+      el.authView.classList.add("hidden");
+      el.appView.classList.add("hidden");
+      el.adminView.classList.remove("hidden");
+      el.navLogout.classList.remove("hidden");
+      el.navRegister.classList.add("hidden");
+      el.navLogin.classList.add("hidden");
+      el.navAdmin.classList.add("hidden");
+      renderAdmin();
+    }
+
+    function setMessage(target, text, type="info"){
+      target.innerHTML = `<div class="msg ${type}">${text}</div>`;
+      setTimeout(()=>{ if(target.innerHTML.includes(text)) target.innerHTML = ""; }, 3200);
+    }
+
+    function isValidUsername(name){
+      // فارسی / انگلیسی / عدد / _ . -
+      return /^[\u0600-\u06FFA-Za-z0-9_.-]+$/.test(name);
+    }
+    function isValidPassword(pass){
+      return /^(?=.*[A-Za-z])(?=.*\d).{5,}$/.test(pass);
+    }
+    function isValidGmail(email){
+      if(!email.trim()) return true;
+      return /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(email.trim());
+    }
+
+    function currentChatLabel(){
+      if(state.chat.type === "public") return "چت عمومی";
+      return "پیام خصوصی با: " + state.chat.target;
+    }
+
+    function currentChatSubtitle(){
+      if(state.chat.type === "public") return "همه پیام‌های عمومی اینجا نمایش داده می‌شوند.";
+      return "این گفتگو فقط بین شما و " + state.chat.target + " است.";
+    }
+
+    function openChatPublic(){
+      state.chat = { type:"public", target:null };
+      state.replyTo = null;
+      renderAll();
+    }
+
+    function openPV(username){
+      state.chat = { type:"pv", target: username };
+      state.replyTo = null;
+      renderAll();
+    }
+
+    function getUser(username){
+      return state.users.find(u => u.username === username);
+    }
+
+    function canLoginUser(user){
+      return user && user.status !== "deleted";
+    }
+
+    function sendSystem(text){
+      state.messages.push({
+        id: uid(),
+        sender: "system",
+        recipient: null,
+        text,
+        createdAt: Date.now(),
+        hiddenFor: [],
+        deletedByAll: false,
+        replyTo: null,
+        file: null,
+        sticker: null
+      });
+      save();
+    }
+
+    function renderAll(){
+      renderUsers();
+      renderMessages();
+      renderCurrentInfo();
+      renderReplyBar();
+      renderComposerState();
+    }
+
+    function renderCurrentInfo(){
+      if(!state.currentUser){
+        el.currentUserInfo.innerHTML = "";
+        return;
+      }
+      el.currentUserInfo.innerHTML = `
+        <div class="small">
+          کاربر: <b>${escapeHtml(state.currentUser.username)}</b><br>
+          وضعیت: <span class="chip ${statusClass(state.currentUser.status)}">${statusFa(state.currentUser.status)}</span>
         </div>
-      `).join('') || '<div class="mini">فعلاً کسی نیست</div>';
+      `;
     }
 
-    function renderPVTargets(){
-      const users = getUsers().filter(u => u.username !== state.currentUser.username && u.status !== 'deleted');
-      els.pvTarget.innerHTML = users.map(u => `<option value="${u.username}">${u.username}</option>`).join('') || '<option value="">کاربری نیست</option>';
+    function statusFa(status){
+      if(status === "active") return "فعال";
+      if(status === "limited") return "محدود";
+      if(status === "deleted") return "حذف شده";
+      return status;
+    }
+    function statusClass(status){
+      if(status === "active") return "ok";
+      if(status === "limited") return "warn";
+      if(status === "deleted") return "off";
+      return "";
+    }
+
+    function renderUsers(){
+      if(!state.currentUser){
+        el.usersList.innerHTML = "";
+        return;
+      }
+      const others = state.users.filter(u => u.username !== state.currentUser.username);
+      if(!others.length){
+        el.usersList.innerHTML = `<div class="small">فعلاً عضو دیگری وجود ندارد.</div>`;
+        return;
+      }
+      el.usersList.innerHTML = `
+        ${state.chat.type === "public" ? `
+          <div class="user-item" data-public="1">
+            <span>چت عمومی</span>
+            <span class="badge active">عمومی</span>
+          </div>` : `
+          <div class="user-item" data-public="1">
+            <span>چت عمومی</span>
+            <span class="badge active">بازگشت</span>
+          </div>`}
+        ${others.map(u => `
+          <div class="user-item" data-user="${escapeAttr(u.username)}">
+            <span>${escapeHtml(u.username)}</span>
+            <span class="badge ${statusClass(u.status)}">${statusFa(u.status)}</span>
+          </div>
+        `).join("")}
+      `;
+
+      el.usersList.querySelectorAll("[data-user]").forEach(item=>{
+        item.addEventListener("click", ()=> openPV(item.dataset.user));
+      });
+      const pub = el.usersList.querySelector("[data-public]");
+      if(pub) pub.addEventListener("click", openChatPublic);
+    }
+
+    function renderReplyBar(){
+      if(!state.replyTo){
+        el.replyBar.classList.remove("show");
+        el.clearReply.classList.add("hidden");
+        return;
+      }
+      const msg = state.messages.find(m => m.id === state.replyTo);
+      if(!msg){
+        state.replyTo = null;
+        el.replyBar.classList.remove("show");
+        el.clearReply.classList.add("hidden");
+        return;
+      }
+      el.replyBar.classList.add("show");
+      el.clearReply.classList.remove("hidden");
+      el.replyText.textContent = `در حال پاسخ به: ${msg.sender} — ${shortText(msg.text || (msg.sticker || msg.file?.name || "فایل"), 50)}`;
+    }
+
+    function renderComposerState(){
+      const limited = state.currentUser && state.currentUser.status === "limited";
+      el.messageText.disabled = !state.currentUser || limited;
+      el.sendBtn.disabled = !state.currentUser || limited;
+      el.fileBtn.disabled = !state.currentUser || limited;
+      el.stickerBtn.disabled = !state.currentUser || limited;
+      el.messageText.placeholder = limited
+        ? "حساب شما محدود شده و امکان ارسال پیام ندارید."
+        : "پیام خود را بنویس...";
+    }
+
+    function filteredMessages(){
+      if(!state.currentUser) return [];
+      if(state.chat.type === "public"){
+        return state.messages.filter(m => m.recipient == null && visibleToCurrent(m));
+      }
+      const t = state.chat.target;
+      return state.messages.filter(m => (
+        (m.sender === state.currentUser.username && m.recipient === t) ||
+        (m.sender === t && m.recipient === state.currentUser.username)
+      ) && visibleToCurrent(m));
+    }
+
+    function visibleToCurrent(m){
+      if(m.deletedByAll) return true; // خود پیام حذف‌شده نمایش داده می‌شود با وضعیت حذف
+      if(m.hiddenFor && m.hiddenFor.includes(state.currentUser.username)) return false;
+      return true;
     }
 
     function renderMessages(){
-      const messages = getMessages();
-      const current = state.currentUser?.username;
-
-      const visible = messages.filter(m => !m.deletedFor?.includes(current));
-
-      els.messagesList.innerHTML = visible.map(m => {
-        const canDelete = current && (m.sender === current || state.currentUser?.role === 'admin');
-        const isMine = m.sender === current;
-        const replied = m.replyTo ? `<div class="mini" style="margin-bottom:6px">پاسخ به: ${m.replyTo}</div>` : '';
-        return `
-          <div class="msg">
-            <div class="meta">
-              <span><b>${m.sender}</b> ${m.type !== 'text' ? '• ' + m.type : ''}</span>
-              <span>${new Date(m.time).toLocaleString('fa-IR')}</span>
-            </div>
-            ${replied}
-            <div class="body">${escapeHtml(m.text || '')}</div>
-            <div class="actions">
-              <button class="btn small" onclick="replyMessage('${m.id}')">پاسخ</button>
-              <button class="btn small" onclick="forwardMessage('${m.id}')">فوروارد</button>
-              ${canDelete ? `<button class="btn small danger" onclick="deleteMessage('${m.id}')">حذف</button>` : ''}
-              ${isMine ? `<span class="badge ok">پیام شما</span>` : `<span class="badge warn">پیام دیگران</span>`}
-            </div>
-          </div>
-        `;
-      }).join('') || '<div class="notice">هنوز پیامی ثبت نشده. شروع کن قهرمان 😄</div>';
-
-      const pvs = getPv().filter(m =>
-        m.from === current || m.to === current || state.currentUser?.role === 'admin'
-      );
-      els.pvMessagesList.innerHTML = pvs.map(m => `
-        <div class="msg">
-          <div class="meta">
-            <span><b>${m.from}</b> → <b>${m.to}</b></span>
-            <span>${new Date(m.time).toLocaleString('fa-IR')}</span>
-          </div>
-          <div class="body">${escapeHtml(m.text || '')}</div>
-        </div>
-      `).join('') || '<div class="notice">پیام خصوصی‌ای وجود ندارد.</div>';
-
-      const files = getFiles().filter(f => !f.deletedFor?.includes(current));
-      els.filesList.innerHTML = files.map(f => `
-        <div class="msg">
-          <div class="meta">
-            <span><b>${f.sender}</b> • ${f.kind}</span>
-            <span>${new Date(f.time).toLocaleString('fa-IR')}</span>
-          </div>
-          <div class="body">${escapeHtml(f.name || f.text || 'فایل')}</div>
-        </div>
-      `).join('') || '<div class="notice">فایلی ارسال نشده.</div>';
-    }
-
-    function renderProfile(){
-      els.profileUsername.textContent = state.currentUser?.username || '-';
-      els.profileEmail.textContent = state.currentUser?.email || '-';
-      els.profileStatus.textContent = state.currentUser?.status || 'active';
-      els.profileRole.textContent = state.currentUser?.role || 'member';
-    }
-
-    function renderAdmin(){
-      const users = getUsers();
-      const deleted = getDeleted();
-
-      els.membersTable.innerHTML = users.map(u => {
-        if (u.status === 'deleted') return '';
-        const statusBadge =
-          u.status === 'restricted' ? `<span class="badge warn">محدود</ u.status === ' `<span class="badge ok">فعال</span>`;
-        const restrictBtn = u.status === 'restricted'
-          ? `<button class="btn small success" onclick="toggleRestrict('${u.username}')">رفع محدودیت</button>`
-          : `<button class="btn small warning" onclick="toggleRestrict('${u.username}')">محدود</button>`;
-        return `
-          <tr>
-            <td>${u.username}</td>
-            <td>${u.email || '-'}</td>
-            <td>${statusBadge}</td>
-            <td>
-              <div class="row" style="gap:8px">
-                ${restrictBtn}
-                <button class="btn small danger" onclick="deleteUser('${u.username}')">حذف</button>
-              </div>
-            </td>
-          </tr>
-        `;
-      }).join('') || `<tr><td colspan="4">عضوی وجود ندارد.</td></tr>`;
-
-      els.blockedTable.innerHTML = deleted.map(u => `
-        <tr>
-          <td>${u.username}</td>
-          <td>${u.status === 'deleted' ? 'حذف شده' : 'محدود'}</td>
-          <td>
-            <button class="btn small success" onclick="restoreUser('${u.username}')">برگرداندن</button>
-          </td>
-        </tr>
-      `).join('') || `<tr><td colspan="3">موردی وجود ندارد.</td></tr>`;
-    }
-
-    function switchChatMode(mode){
-      state.chatMode = mode;
-      ['public','pv','files','profile'].forEach(m => {
-        document.querySelectorAll('[data-chatmode="'+m+'"]').forEach(b => b.classList.toggle('active', m === mode));
-      });
-      els.publicChatPanel.classList.toggle('hidden', mode !== 'public');
-      els.pvPanel.classList.toggle('hidden', mode !== 'pv');
-      els.filesPanel.classList.toggle('hidden', mode !== 'files');
-      els.profilePanel.classList.toggle('hidden', mode !== 'profile');
-
-      const labels = {
-        public:'چت عمومی',
-        pv:'پیام خصوصی',
-        files:'فایل‌ها / مدیا',
-        profile:'پروفایل'
-      };
-      els.chatModeLabel.textContent = labels[mode];
-      updateAll();
-    }
-
-    function switchAdminMode(mode){
-      state.adminMode = mode;
-      document.querySelectorAll('[data-adminmode]').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll(`[data-adminmode="${mode}"]`).forEach(b => b.classList.add('active'));
-      els.adminMembersPanel.classList.toggle('hidden', mode !== 'members');
-      els.adminBlockedPanel.classList.toggle('hidden', mode !== 'blocked');
-    }
-
-    function updateAll(){
-      if (!state.currentUser) return;
-      updateOnline();
-      renderMessages();
-      renderPVTargets();
-      renderProfile();
-      if (state.currentUser.role === 'admin') renderAdmin();
-    }
-
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'","&#39;");
-    }
-
-    function register(){
-      const username = els.regUsername.value.trim();
-      email = els.reg.regPassword.value.trim();
-      const email = els.regEmail.value.trim();
-
-      if (!username) return alert('نام کاربری الزامی است.');
-      if (!password) return alert('رمز عبور الزامی است.');
-      if (!isStrongPassword(password)) return alert('رمز عبور باید حداقل ۵ کاراکتر و شامل حروف و عدد باشد.');
-      if (!isGmail(email)) return alert('ایمیل باید gmail باشد یا خالی بماند.');
-
-      const users = getUsers();
-      if (users.some(u => u.username === username)) return alert('این نام کاربری قبلاً ثبت شده است.');
-
-      users.push({
-        username, password, email,
-        status:'active',
-        role:'member'
-      });
-
-      setUsers(users);
-      alert('ثبت‌نام با موفقیت انجام شد. حالا وارد شو 😎');
-      els.loginUsername.value = username;
-      els.loginPassword.value = password;
-      showLogin();
-    }
-
-    function login(){
-      const username = els.loginUsername.value.trim();
-      const password = els.loginPassword.value.trim();
-
-      // admin login only exact
-      if (username === ADMIN_USER && password === ADMIN_PASS){
-        state.currentUser = { username: ADMIN_USER, role: 'admin', email: '', status:'active' };
-        saveSession(state.currentUser);
-        afterLogin();
+      if(!state.currentUser){
+        el.messages.innerHTML = `<div class="msg info">برای دیدن پیام‌ها ابتدا وارد شوید.</div>`;
+        el.chatTitle.textContent = "چت آزاد اندیشان";
+چت آزاد اندیشان";
+ "ورود لازم است.";
         return;
       }
 
-      const user = getUsers().find(u => u.username === username && u.password === password);
+      el.chatTitle.textContent = currentChatLabel();
+      el.chatSubtitle.textContent = currentChatSubtitle();
 
-      if (!user) return alert('نام کاربری یا رمز عبور اشتباه است.');
-      if (user.status === 'restricted') return alert('حساب شما محدود شده است.');
-      if (user.status === 'deleted') return alert('این حساب حذف شده است.');
+      const list = filteredMessages();
+      if(!list.length){
+        el.messages.innerHTML = `<div class="msg info">هنوز پیامی در این گفتگو ثبت نشده است.</div>`;
+        return;
+      }
 
-      state.currentUser = { ...user };
-      saveSession(state.currentUser);
-      afterLogin();
-    }
-
-    function afterLogin(){
-      showView(state.currentUser.role === 'admin' ? 'admin' : 'chat');
-      setTopButtons(true);
-      $('goChatBtn').classList.toggle('hidden', state.currentUser.role === 'admin');
-      $('goAdminBtn').classList.toggle('hidden', state.currentUser.role !== 'admin');
-      $('currentUserName').textContent = state.currentUser.username;
-      $('currentUserRole').textContent = state.currentUser.role;
-      $('currentUserStatus').textContent = state.currentUser.role === 'admin' ? 'مدیر' : 'آنلاین';
-      $('meLabel').textContent = state.currentUser.username;
-      switchChatMode('public');
-      if (state.currentUser.role === 'admin') switchAdminMode('members');
-      updateAll();
-    }
-
-    function logout(){
-      state.currentUser = null;
-      clearSession();
-      setTopButtons(false);
-      showView('auth');
-      state.chatMode = 'public';
-      state.adminMode = 'members';
-      els.regPassword.value = '';
-      els.loginPassword.value = '';
-    }
-
-    function addMessage(type='text', text=null){
-      if (!state.currentUser) return alert('اول وارد شو.');
-      const msgText = text ?? els.messageInput.value.trim();
-      if (!msgText) return alert('پیام خالی است.');
-
-      const messages = getMessages();
-      messages.push({
-        id: uid(),
-        sender: state.currentUser.username,
-        text: msgText,
-        type,
-        time: Date.now(),
-        replyTo: state.replyTo,
-        forwardedFrom: state.forwardFrom,
-        deletedFor: []
+      el.messages.innerHTML = list.map(m => renderMessageBubble(m)).join("");
+      el.messages.querySelectorAll("[data-action='reply']").forEach(btn=>{
+        btn.addEventListener("click", ()=> {
+          state.replyTo = btn.dataset.id;
+          renderReplyBar();
+          el.messageText.focus();
+        });
       });
-      setMessages(messages);
-
-      state.replyTo = null;
-      state.forwardFrom = null;
-      els.messageInput.value = '';
-      updateAll();
-    }
-
-    function addPv(){
-      if (!state.currentUser) return alert('اول وارد شو.');
-      const to = els.pvTarget.value;
-      if (!to) return alert('گیرنده را انتخاب کن.');
-      const text = els.pvInput.value.trim();
-      if (!text) return alert('متن PV خالی است.');
-
-      const pvs = getPv();
-      pvs.push({
-        id: uid(),
-        from: state.currentUser.username,
-        to,
-        text,
-        time: Date.now()
+      el.messages.querySelectorAll("[data-action='forward']").forEach(btn=>{
+        btn.addEventListener("click", ()=> {
+          const id = btn.dataset.id;
+          const m = state.messages.find(x => x.id === id);
+          if(!m) return;
+          const text = m.text ? m.text : (m.sticker ? m.sticker : (m.file ? `[فایل: ${m.file.name}]` : ""));
+          el.messageText.value = `↪️ فوروارد از ${m.sender}:\n${text}\n`;
+          el.messageText.focus();
+        });
       });
-      setPv(pvs);
-      els.pvInput.value = '';
-      updateAll();
-      alert('PV ارسال شد.');
+      el.messages.querySelectorAll("[data-action='delete']").forEach(btn=>{
+        btn.addEventListener("click", ()=> deleteMessage(btn.dataset.id));
+      });
     }
 
-    function handleFileUpload(){
-      const files = Array.from(els.fileInput.files || []);
-      if (!files.length) return alert('اول فایل انتخاب کن.');
+    function renderMessageBubble(m){
+      if(m.sender === "system"){
+        return `
+          <div class="bubble system">
+            <div class="meta"><span>سیستم</span><span>${fmtTime(m.createdAt)}</span></div>
+            <div class="content">${escapeHtml(m.text)}</div>
+          </div>
+        `;
+      }
 
-      let progress = 0;
-      els.uploadBar.style.width = '0%';
-      els.uploadPercent.textContent = '0%';
+      const mine = m.sender === state.currentUser.username;
+      const deleted = !!m.deletedByAll;
+      const reply = m.replyTo ? state.messages.find(x => x.id === m.replyTo) : null;
+      let body = "";
 
-      const interval = setInterval(() => {
-        progress += 10;
-        els.uploadBar.style.width = progress + '%';
-        els.uploadPercent.textContent = progress + '%';
-        if (progress >= 100){
-          clearInterval(interval);
-          const stored = getFiles();
-          files.forEach(file => {
-            stored.push({
-              id: uid(),
-              sender: state.currentUser.username,
-              kind: file.type.startsWith('image/') ? 'عکس' :
-                    file.type.startsWith('video/') ? 'ویدیو' :
-                    file.type.startsWith('audio/') ? 'صدا' :
-                    file.type.includes('gif') ? 'گیف' : 'فایل',
-              name: file.name,
-              time: Date.now(),
-              deletedFor:[]
-            });
-          });
-          setFiles(stored);
-          updateAll();
-          alert('فایل با موفقیت "ارسال" شد.');
+      if(deleted){
+        body = `<div class="content"><i>این پیام حذف شده است.</i></div>`;
+      }else{
+        if(reply){
+          body += `
+            <div class="reply-box">
+              پاسخ به ${escapeHtml(reply.sender)}:
+              <div>${escapeHtml(shortText(reply.text || reply.sticker || reply.file?.name || "فایل", 90))}</div>
+            </div>`;
         }
-      }, 120);
+        if(m.text) body += `<div class="content">${escapeHtml(m.text)}</div>`;
+        if(m.sticker) body += `<div class="content" style="font-size:34px">${escapeHtml(m.sticker)}</div>`;
+        if(m.file) body += renderAttachment(m.file);
+      }
+
+      const who = mine ? "شما" : escapeHtml(m.sender);
+      return `
+        <div class="bubble ${mine ? "me" : "other"}">
+          <div class="meta">
+            <span>${who}${m.recipient ? ` → ${escapeHtml(m.recipient)}` : ""}</span>
+            <span>${fmtTime(m.createdAt)}</span>
+          </div>
+          ${body}
+          <div class="actions">
+            <button class="btn-ghost" data-action="reply" data-id="${m.id}">پاسخ</button>
+            <button class="btn-ghost" data-action="forward" data-id="${m.id}">فوروارد</button>
+            <button class="btn-danger" data-action="delete" data-id="${m.id}">حذف</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAttachment(file){
+      const mime = file.mime || "";
+      if(file.type === "image"){
+        return `<div class="attachment"><img src="${file.data}" alt="${escapeAttr(file.name)}"></div>`;
+      }
+      if(file.type === "video"){
+        return `<div class="attachment"><video controls src="${file.data}"></video></div>`;
+      }
+      if(file.type === "audio"){
+        return `<div class="attachment"><audio controls src="${file.data}"></audio></div>`;
+      }
+      if(file.type === "text"){
+        return `<div class="attachment"><div class="small">فایل متنی: ${escapeHtml(file.name)}</div><pre style="white-space:pre-wrap;margin:8px 0 0">${escapeHtml(file.text || "")}</pre></div>`;
+      }
+      return `
+        <div class="attachment">
+          <div class="small">فایل: ${escapeHtml(file.name)}</div>
+          <a class="btn btn-blue" href="${file.data}" download="${escapeAttr(file.name)}">دانلود</a>
+        </div>
+      `;
     }
 
     function deleteMessage(id){
-      const messages = getMessages();
-      const m = messages.find(x => x.id === id);
-      if (!m) return;
+      const msg = state.messages.find(m => m.id === id);
+      if(!msg) return;
+      const me = state.currentUser.username;
+      if(msg.sender === me){
+        msg.deletedByAll = true;
+        msg.hiddenFor = [];
+      }else{
+        if(!msg.hiddenFor) msg.hiddenFor = [];
+        if(!msg.hiddenFor.includes(me)) msg.hiddenFor.push(me);
+      }
+      save();
+      renderMessages();
+    }
 
-      if (state.currentUser.role === 'admin'){
-        m.deletedFor = 'ALL';
-      } else if (m.sender === state.currentUser.username) {
-        m.deletedFor = 'ALL';
-      } else {
-        m.deletedFor = Array.isArray(m.deletedFor) ? m.deletedFor : [];
-        if (!m.deletedFor.includes(state.currentUser.username)) m.deletedFor.push(state.currentUser.username);
+    function sendMessage(){
+      if(!state.currentUser) return;
+      if(state.currentUser.status === "limited"){
+        setMessage(el.authMessage, "حساب شما محدود شده و امکان ارسال پیام ندارید.", "error");
+        return;
+      }
+      const text = el.messageText.value.trim();
+      if(!text && !state.pendingFile && !state.pendingSticker){
+        return;
       }
 
-      setMessages(messages);
-      updateAll();
+      const recipient = state.chat.type === "pv" ? state.chat.target : null;
+
+      state.messages.push({
+        id: uid(),
+        sender: state.currentUser.username,
+        recipient,
+        text,
+        sticker: state.pendingSticker,
+        file: state.pendingFile,
+        replyTo: state.replyTo,
+        createdAt: Date.now(),
+        hiddenFor: [],
+        deletedByAll: false
+      });
+
+      state.replyTo = null;
+      state.pendingFile = null;
+      state.pendingSticker = null;
+      el.messageText.value = "";
+      el.fileInput.value = "";
+      el.progressWrap.classList.add("hidden");
+      el.progressBar.style.width = "0%";
+      el.stickerPanel.classList.remove("show");
+      save.messages.scrollTop = el.messages.scrollHeight;
+Top = el.messages.scrollHeight;
     }
 
-    function replyMessage(id){
-      const m = getMessages().find(x => x.id === id);
-      if (!m) return;
-      state.replyTo = m.sender;
-      els.messageInput.value = `@${m.sender} `;
-      els.messageInput.focus();
-      alert(`حالت پاسخ فعال شد برای پیام: ${m.sender}`);
+    function fmtTime(ts){
+      const d = new Date(ts);
+      return d.toLocaleTimeString("fa-IR", { hour:"2-digit", minute:"2-digit" });
     }
 
-    function forwardMessage(id){
-      const m = getMessages().find(x => x.id === id);
-      if (!m) return;
-      state.forwardFrom = m.id;
-      els.messageInput.value = `[فوروارد از ${m.sender}] ${m.text}`;
-      els.messageInput.focus();
-      alert('متن پیام برای فوروارد آماده شد.');
+    function shortText(text, len){
+      text = String(text || "");
+      return text.length > len ? text.slice(0, len) + "..." : text;
     }
 
-    function deleteUser(username){
-      const users = getUsers();
-      const idx = users.findIndex(u => u.username === username);
-      if (idx === -1) return;
-      if (!confirm(`آیا ${username} حذف شود؟`)) return;
+    function escapeHtml(str){
+      return String(str ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    function escapeAttr(str){ return escapeHtml(str).replaceAll("`","&#096;"); }
 
-      const user = users[idx];
-      user.status = 'deleted';
-      users[idx] = user;
-      setUsers(users);
-
-      const deleted = getDeleted();
-      if (!deleted.some(u => u.username === username)) deleted.push(user);
-      setDeleted(deleted);
-
-      updateAll();
-      renderAdmin();
+    // ========== AUTH TABS ==========
+    function showRegisterTab(){
+      el.registerForm.classList.remove("hidden");
+      el.loginForm.classList.add("hidden");
+      el.tabRegister.classList.add("btn-primary");
+      el.tabRegister.classList.remove("btn-ghost");
+      el.tabLogin.classList.add("btn-ghost");
+      el.tabLogin.classList.remove("btn-primary");
+    }
+    function showLoginTab(){
+      el.registerForm.classList.add("hidden");
+      el.loginForm.classList.remove("hidden");
+      el.tabLogin.classList.add("btn-primary");
+      el.tabLogin.classList.remove("btn-ghost");
+      el.tabRegister.classList.add("btn-ghost");
+      el.tabRegister.classList.remove("btn-primary");
     }
 
-    function toggleRestrict(username){
-      const users = getUsers();
-      const user = users.find(u => u.username === username);
-      if (!user) return;
-      user.status = user.status === 'restricted' ? 'active' : 'restricted';
-      setUsers(users);
+    el.tabRegister.addEventListener("click", showRegisterTab);
+    el.tabLogin.addEventListener("click", showLoginTab);
+    el.navRegister.addEventListener("click", ()=> { showAuth(); showRegisterTab(); });
+    el.navLogin.addEventListener("click", ()=> { showAuth(); showLoginTab(); });
+    el.navAdmin.addEventListener("click", ()=> { showAuth(); setMessage(el.authMessage, "برای ورود مدیر، فرم ورود مدیر را پر کنید.", "info"); });
+    el.navLogout.addEventListener("click", logout);
 
-      const deleted = getDeleted();
-      const existing = deleted.find(u => u.username === username);
-      if (user.status === 'restricted') {
-        if (!existing) deleted.push({...user});
-      } else {
-        const index = deleted.findIndex(u => u.username === username);
-        if (index !== -1) deleted.splice(index, 1);
+    // ========== REGISTER ==========
+    el.registerForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const username = el.regUsername.value.trim();
+      const password = el.regPassword.value.trim();
+      const email = el.regEmail.value.trim();
+
+      if(!username || !password){
+        return setMessage(el.authMessage,();
+
+      if(!username || !password){
+        return setMessage(el.authMessage,بری و رمز عبور الزامی هستند        return setMessage(el.authMessage, "نام کاربری باید فقط فارسی/انگلیسی/عدد و _ . - باشد.", "error");
       }
-      setDeleted(deleted);
-
-      updateAll();
-      renderAdmin();
-    }
-
-    function restoreUser(username){
-      const users = getUsers();
-      const user = users.find(u => u.username === username);
-      if (!user) return;
-      user.status = 'active';
-      setUsers(users);
-
-      const deleted = getDeleted().filter(u => u.username !== username);
-      setDeleted(deleted);
-
-      updateAll();
-      renderAdmin();
-    }
-
-    function showLogin(){
-      els.tabLogin.classList.add('active');
-      els.tabRegister.classList.remove('active');
-      els.loginPanel.classList.remove('hidden');
-      els.registerPanel.classList.add('hidden');
-    }
-
-    function showRegister(){
-      els.tabRegister.classList.add('active');
-      els.tabLogin.classList.remove('active');
-      els.registerPanel.classList.remove('hidden');
-      els.loginPanel.classList.add('hidden');
-    }
-
-    // global functions for inline onclick
-    window.replyMessage = reply forwardMessage;
-    window.deleteMessage = forwardMessage;
-    window.deleteMessage = deleteMessage;
-    window.toggleRestrict = toggleict;
-    window.deleteUser = deleteUser;
-    window.restoreUser = restoreUser;
-
-    // Events
-    els.tabRegister.onclick = showRegister;
-    els.tabLogin.onclick = showLogin;
-    els.registerBtn.onclick = register;
-    els.loginBtn.onclick = login;
-    els.goRegisterBtn.onclick = showRegister;
-    els.goLoginBtn.onclick = showLogin;
-    els.goChatBtn.onclick = () => showView('chat');
-    els.goAdminBtn.onclick = () => {
-      if (state.currentUser?.role === 'admin') showView('admin');
-      else alert('فقط مدیر اجازه ورود به پنل مدیریت دارد.');
-    };
-    els.logoutBtn.onclick = logout;
-    els.sendMsgBtn.onclick = () => addMessage('text');
-    els.sendStickerBtn.onclick = () => addMessage('sticker', '😎 استیکر');
-    els.sendGifBtn.onclick = () => addMessage('gif', 'GIF');
-    els.sendPvBtn.onclick = addPv;
-    els.sendFileBtn.onclick = handleFileUpload;
-    els.fileInput.onchange = () => {
-      if (els.fileInput.files.length) {
-        alert(`${els.fileInput.files.length} فایل انتخاب شد. حالا روی "ارسال فایل" بزن.`);
+      if(state.users.some(u => u.username === username)){
+        return setMessage(el.authMessage, "این نام کاربری قبلاً ثبت شده است.", "error");
       }
-    };
-    els.refreshBtn.onclick = updateAll;
-    els.backToChatBtn.onclick = () => showView('chat');
+      if(!isValidPassword(password)){
+        return setMessage(el.authMessage, "رمز عبور باید حداقل ۵ کاراکتر و شامل حروف و عدد باشد.", "error");
+      }
+      if(!isValidGmail(email)){
+        return setMessage(el.authMessage, "ایمیل باید از نوع @gmail.com باشد یا خالی بماند.", "error");
+      }
 
-    document.querySelectorAll('[data-chatmode]').forEach(btn => {
-      btn.onclick = () => switchChatMode(btn.dataset.chatmode);
+      state.users.push({
+        id: uid(),
+        username,
+        password,
+        email,
+        status: "active",
+        createdAt: Date.now()
+      });
+      save();
+      setMessage(el.authMessage, "ثبت‌نام با موفقیت انجام شد. حالا وارد شو 😎", "success");
+      el.registerForm.reset();
+      showLoginTab();
     });
 
-    document.querySelectorAll('[data-adminmode]').forEach(btn => {
-      btn.onclick = () => switchAdminMode(btn.dataset.adminmode);
+    // ========== LOGIN ==========
+    el.loginForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const username = el.loginUsername.value.trim();
+      const password = el.loginPassword.value.trim();
+
+      const user = state.users.find(u => u.username === username && u.password === password);
+      if(!user) return setMessage(el.authMessage, "نام کاربری یا رمز عبور اشتباه است.", "error");
+      if(user.status === "deleted"){
+        return setMessage(el.authMessage, "این حساب حذف شده و امکان ورود ندارد.", "error");
+      }
+
+      state.currentUser = user;
+      state.isAdmin = false;
+      state.chat = { type:"public", target:null };
+      state.replyTo = null;
+      state.pendingFile = null;
+      state.pendingSticker = null;
+      setMessage(el.authMessage, "ورود با موفقیت انجام شد.", "success");
+      renderAll();
+      showUserApp();
+      el.loginForm.reset();
+      sendSystem(`کاربر ${user.username} وارد شد.`);
     });
 
-    // Init
-    initStorage();
+    // ========== ADMIN LOGIN ==========
+    el.adminLoginForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const username = el.adminUsername.value.trim();
+      const password = el.adminPassword.value.trim();
 
-    const current = loadSession();
-    if (current) {
-      state.currentUser = current;
-      setTopButtons(true);
-      if (current.role === 'admin') {
-        showView('admin');
-        switchAdminMode('members');
-      } else {
-        showView('chat');
-        switchChatMode('public');
+      if(username === ADMIN.username && password === ADMIN.password){
+        state.currentUser = null;
+        state.isAdmin = true;
+        showAdmin();
+      }else{
+        setMessage(el.authMessage, "ورود مدیر فقط با نام کاربری و رمز عبور مشخص‌شده امکان دارد.", "error");
       }
-      $('currentUserName').textContent = current.username;
-      $('currentUserRole').textContent = current.role;
-      $('currentUserStatus').textContent = current.role === 'admin' ? 'مدیر' : 'آنلاین';
-      $('meLabel').textContent = current.username;
-      updateAll();
-    } else {
-      showView('auth');
-      setTopButtons(false);
+    });
+
+    // ========== LOGOUT ==========
+    function logout(){
+      state.currentUser = null;
+      state.isAdmin = false;
+      state.chat = { type:"public", target:null };
+      state.replyTo = null;
+      state.pendingFile = null;
+      state.pendingSticker = null;
+      el.messageText.value = "";
+      showAuth();
+      showRegisterTab();
     }
 
-    // little auto refresh
-    setInterval(() => {
-      if (state.currentUser) updateAll();
-    }, 2500);
+    // ========== USER APP EVENTS ==========
+    el.openPublic.addEventListener("click", openChatPublic);
+    el.sendBtn.addEventListener("click", sendMessage);
+    el.clearReply.addEventListener("click", ()=> { state.replyTo = null; renderReplyBar(); });
+    el.cancelReply.addEventListener("click", ()=> { state.replyTo = null; renderReplyBar(); });
+    el.messageText.addEventListener("keydown", (e)=>{
+      if(e.key === "Enter" && !e.shiftKey){
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    el.stickerBtn.addEventListener("click", ()=>{
+      el.stickerPanel.classList.toggle("show");
+    });
+
+    el.stickerPanel.addEventListener("click", (e)=>{
+      const t = e.target;
+      if(t.classList.contains("sticker")){
+        state.pendingSticker = t.textContent.trim();
+        el.stickerPanel.classList.remove("show");
+        set.authMessage, `استیکر انتخاب شد: ${: ${state.pendingSticker}`, "info");
+      }
+    });
+
+    el.fileBtn.addEventListener("click", ()=> el.fileInput.click());
+
+    el.fileInput.addEventListener("change", ()=>{
+      const file = el.fileInput.files[0];
+      if(!file) return;
+      if(state.currentUser && state.currentUser.status === "limited"){
+        setMessage(el.authMessage, "حساب شما محدود شده و امکان ارسال فایل ندارید.", "error");
+        el.fileInput.value = "";
+        return;
+      }
+
+      el.progressWrap.classList.remove("hidden");
+      el.progressBar.style.width = "0%";
+
+      let progress = 0;
+      const timer = setInterval(()=>{
+        progress += 8;
+        if(progress > 95) progress = 95;
+        el.progressBar.style.width = progress + "%";
+      }, 80);
+
+      const reader = new FileReader();
+      reader.onload = ()=> {
+        clearInterval(timer);
+        el.progressBar.style.width = "100%";
+        setTimeout(()=>{
+          el.progressWrap.classList.add("hidden");
+          el.progressBar.style.width = "0%";
+        }, 500);
+
+        let payload = {
+          name: file.name,
+          mime: file.type || "application/octet-stream",
+          data: reader.result,
+          type: "file"
+        };
+
+        if(file.type.startsWith("image/")) payload.type = "image";
+        else if(file.type.startsWith("video/")) payload.type = "video";
+        else if(file.type.startsWith("audio/")) payload.type = "audio";
+        else if(file.type.startsWith("text/")) payload.type = "text";
+
+        if(payload.type === "text"){
+          payload.text = reader.result;
+        }
+
+        state.pendingFile = payload;
+        state.pendingSticker = null;
+        setMessage(el.authMessage, `فایل آماده ارسال است: ${file.name}`, "success");
+      };
+
+      reader.onerror = ()=>{
+        clearInterval(timer);
+        setMessage(el.authMessage, "خطا در خواندن فایل.", "error");
+      };
+
+      if(file.type.startsWith("text/")) reader.readAsText(file);
+      else reader.readAsDataURL(file);
+    });
+
+    // ========== ADMIN RENDER ==========
+    function renderAdmin(){
+      const users = [...state.users];
+      el.membersTableWrap.innerHTML = `
+        <table class="table">
+          <thead>
+            <tr>
+              <th>نام کاربری</th>
+              <th>ایمیل</th>
+              <th>وضعیت</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${users.map(u=>`
+              <tr>
+                <td>${escapeHtml(u.username)}</td>
+                <td>${escapeHtml(u.email || "—")}</td>
+                <td><span class="chip ${statusClass(u.status)}">${statusFa(u.status)}</span></td>
+                <td>
+                  <div class="admin-actions">
+                    <button class="btn-warn" data-admin-action="limit" data-user="${escapeAttr(u.username)}">محدود</button>
+                    <button class="btn-danger" data-admin-action="delete" data-user="${escapeAttr(u.username)}">ح">حbutton>
+                    <button class="btn-primary" data-admin-action="restore" data-user="${escapeAttr(u.username)}">برگرداندن</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      const blocked = users.filter(u => u.status !== "active");
+      el.blockedListWrap.innerHTML = blocked.length ? `
+        <table class="table">
+          <thead>
+            <tr>
+              <th>نام کاربری</th>
+              <th>وضعیت</th>
+              <th>عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${blocked.map(u=>`
+              <tr>
+                <td>${escapeHtml(u.username)}</td>
+                <td><span class="chip ${statusClass(u.status)}">${statusFa(u.status)}</span></td>
+                <td>
+                  <button class="btn-primary" data-admin-action="restore" data-user="${escapeAttr(u.username)}">برگرداندن</button>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      ` : `<div class="msg info">فعلاً کاربر محدود یا حذف شده‌ای وجود ندارد.</div>`;
+
+      document.querySelectorAll("[data-admin-action]").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const username = btn.dataset.user;
+          const action = btn.dataset.adminAction;
+          const user = getUser(username);
+          if(!user) return;
+
+          if(action === "limit") user.status = "limited";
+          if(action === "delete") user.status = "deleted";
+          if(action === "restore") user.status = "active";
+
+          save();
+          renderAdmin();
+        });
+      });
+    }
+
+    // ========== INIT ==========
+    function init(){
+      if(!state.users.length){
+        sendSystem("به چت آزاد اندیشان خوش آمدید.");
+      }
+      showAuth();
+      showRegisterTab();
+      renderAll();
+    }
+
+    init();
   </script>
 </body>
 </html>
